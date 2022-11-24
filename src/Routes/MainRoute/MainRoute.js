@@ -1,9 +1,11 @@
 import { createBrowserRouter  } from "react-router-dom"
 import DashboardLayout from "../../Layouts/DashboardLayout/DashboardLayout";
 import MainLayout from "../../Layouts/MainLayout/MainLayout"
+import Blog from "../../Pages/Blog/Blog";
 import AdminDashboard from "../../Pages/DashboardPage/AdminDashboard/AdminDashboard";
 import DashboardPanel from "../../Pages/DashboardPage/DashboardPanel/DashboardPanel";
 import HomePageLayout from "../../Pages/HomePage/HomePageLayout/HomePageLayout";
+import Login from "../../Pages/Login/Login";
 import ErrorPage from "../../Pages/Shared/ErrorPage/ErrorPage";
 
 const mainRoute = createBrowserRouter([
@@ -18,11 +20,11 @@ const mainRoute = createBrowserRouter([
             },
             {
                 path : '/blog',
-                element : <HomePageLayout></HomePageLayout>
+                element : <Blog></Blog>
             },
             {
                 path : '/login',
-                element : <HomePageLayout></HomePageLayout>
+                element : <Login></Login>
             },
         ]
     },
