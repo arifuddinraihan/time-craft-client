@@ -1,21 +1,25 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
     const navMenu = <>
         <NavLink className="btn btn-ghost" to={'/dashboard'}>Dashboard</NavLink>
         <NavLink className="btn btn-ghost">Blog</NavLink>
         <NavLink className="btn btn-ghost">Login</NavLink>
-        <NavLink className="btn btn-ghost">Logout</NavLink>
     </>
+    // location tracker for conditional modal button render in navbar
+    const location = useLocation();
+    const dashboardPath = location.pathname;
 
     return (
         <div className='bg-base-100'>
             <div className="navbar container mx-auto">
                 <div className="navbar-start">
-                    <label htmlFor="dashboard-panel-drawer"  className="btn btn-sm btn-ghost drawer-button lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-                    </label>
+                    {
+                        (dashboardPath === '/dashboard') && <label htmlFor="dashboard-panel-drawer" className="btn btn-md btn-ghost drawer-button lg:hidden">
+                              <svg className="swap-off fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"/></svg>
+                        </label>
+                    }
                     <Link to={'/'} className="btn btn-ghost normal-case text-xl">daisyUI</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
@@ -36,6 +40,7 @@ const Navbar = () => {
                             {
                                 navMenu
                             }
+                            <li className="btn btn-ghost">Logout</li>
                         </ul>
                     </div>
                 </div>
