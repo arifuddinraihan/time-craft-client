@@ -6,6 +6,7 @@ import AdminDashboard from "../../Pages/DashboardPage/AdminDashboard/AdminDashbo
 import DashboardPanel from "../../Pages/DashboardPage/DashboardPanel/DashboardPanel";
 import HomePageLayout from "../../Pages/HomePage/HomePageLayout/HomePageLayout";
 import Login from "../../Pages/Login/Login";
+import SignUp from "../../Pages/Login/SignUp";
 import ErrorPage from "../../Pages/Shared/ErrorPage/ErrorPage";
 
 const mainRoute = createBrowserRouter([
@@ -25,6 +26,10 @@ const mainRoute = createBrowserRouter([
             {
                 path : '/login',
                 element : <Login></Login>
+            },
+            {
+                path : '/register',
+                element : <SignUp></SignUp>
             },
         ]
     },

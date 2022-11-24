@@ -9,7 +9,7 @@ const Login = () => {
     // navigate for after sign up user will be route into home
     const navigate = useNavigate()
 
-    const handleRegister = data => {
+    const handleLogin = data => {
         console.log(data)
     }
 
@@ -21,7 +21,7 @@ const Login = () => {
                     <div className="text-2xl md:text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-warning to-primary pb-12">
                         Registration Form
                     </div>
-                    <form onSubmit={handleSubmit(handleRegister)} >
+                    <form onSubmit={handleSubmit(handleLogin)} >
                         <div>
                             <input type="text" {...register("name", { required: "Your full name is required." })}
                                 className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200" placeholder="Full Name *"
@@ -79,8 +79,8 @@ const Login = () => {
                             />
                         </div>
                         <div className="flex justify-center ">
-                            <p className="text-gray-500">Already have an account? </p>
-                            <Link to={'/register'} className="hover:text-warning hover:underline hover:underline-offset-2 pl-2"> Sign In</Link>
+                            <p className="text-gray-500">Don't have an account? </p>
+                            <Link to={'/register'} className="hover:text-warning hover:underline hover:underline-offset-2 pl-2">Register Here</Link>
                         </div>
                     </form>
                 </div>
