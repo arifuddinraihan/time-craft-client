@@ -4,7 +4,7 @@ import mainRoute from './Routes/MainRoute/MainRoute';
 
 function App() {
   return (
-    <div className=''>
+    <div >
       <RouterProvider router={mainRoute}>
 
       </RouterProvider>
