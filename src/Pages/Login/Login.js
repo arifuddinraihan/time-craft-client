@@ -64,7 +64,7 @@ const Login = () => {
         }
         forgetPassLinkToEmail(userEmail)
             .then(() => {
-                toast.info('Password Reset email sent. Please check your email.')
+                toast.success('Reset link sent. Please check your email.')
                 setLoginError('')
             })
             .catch((error) => {
