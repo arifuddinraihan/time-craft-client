@@ -4,11 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import UserValidation from './context/UserValidation';
+import { Toaster } from 'react-hot-toast';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UserValidation>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}></Toaster>
       <App />
     </UserValidation>
   </React.StrictMode>

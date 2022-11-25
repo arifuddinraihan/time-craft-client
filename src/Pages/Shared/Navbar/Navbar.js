@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { UserContext } from '../../../context/UserValidation';
 
 const Navbar = () => {
+    const { user, logOut } = useContext(UserContext);
+
     const navMenu = <>
-        <NavLink className={({isActive}) => isActive ? "btn btn-xs sm:btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-xs sm:btn-sm md:btn-md"} 
-        to={'/dashboard'}>Dashboard</NavLink>
-        <NavLink className={({isActive}) => isActive ? "btn btn-xs sm:btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-xs sm:btn-sm md:btn-md"} 
-        to={'/blog'}>Blog</NavLink>
-        <NavLink className={({isActive}) => isActive ? "btn btn-xs sm:btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-xs sm:btn-sm md:btn-md"}
-        to={'/login'}>Login</NavLink>
+        {
+            user && <NavLink className={({ isActive }) => isActive ? "btn btn-xs sm:btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-xs sm:btn-sm md:btn-md"}
+                to={'/dashboard'}>Dashboard</NavLink>
+        }
+        <NavLink className={({ isActive }) => isActive ? "btn btn-xs sm:btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-xs sm:btn-sm md:btn-md"}
+            to={'/blog'}>Blog</NavLink>
+        {
+            !user && <NavLink className={({ isActive }) => isActive ? "btn btn-xs sm:btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-xs sm:btn-sm md:btn-md"}
+                to={'/login'}>Login</NavLink>
+        }
     </>
     // location tracker for conditional modal button render in navbar
     const location = useLocation();
@@ -36,14 +43,16 @@ const Navbar = () => {
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img src="https://placeimg.com/80/80/people" />
+                                <img src={user?.photoURL} />
                             </div>
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 bg-opacity-90 rounded-box w-52 gap-2">
                             {
                                 navMenu
                             }
-                            <li className="btn btn-xs sm:btn-sm md:btn-md btn-ghost">Logout</li>
+                            {
+                                user && <li onClick={() => logOut()} className="btn btn-xs sm:btn-sm md:btn-md btn-ghost">Logout</li>
+                            }
                         </ul>
                     </div>
                 </div>

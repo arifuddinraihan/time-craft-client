@@ -1,17 +1,34 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserValidation';
 import { FaGoogle } from "react-icons/fa";
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
-    const { createNewUser } = useContext(UserContext)
+    const { signIn } = useContext(UserContext)
     // navigate for after sign up user will be route into home
-    const navigate = useNavigate()
+    const [loginError, setLoginError] = useState('');
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname || '/';
 
     const handleLogin = data => {
-        console.log(data)
+        setLoginError('')
+        signIn(data.email, data.password)
+            .then(result => {
+                toast.success("Logged in Successfully!");
+                reset();
+                navigate(from, { replace: true });
+            })
+            .catch(error => {
+                toast.error(`${error.message}`)
+                console.error(error.message);
+                setLoginError(error.message);
+            })
     }
 
     return (
@@ -22,18 +39,18 @@ const Login = () => {
                         Login to TimeCraft
                     </div>
                     <form onSubmit={handleSubmit(handleLogin)} >
-                        <div>
-                            <input type="text" {...register("name", { required: "Your full name is required." })}
-                                className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200" placeholder="Full Name *"
-                            />
-                            {errors.name && <p className='text-error my-2'>{errors.name.message}</p>}
-                        </div>
                         <div className='my-6'>
+                            <label className="label">
+                                <span className="label-text">Email</span>
+                            </label>
                             <input type="text" {...register("email", { required: "Your email is required." })}
-                                className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200" placeholder="Your Email" />
+                                className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200" placeholder="info@timecraft.com" />
                             {errors.email && <p className='text-error my-2'>{errors.email.message}</p>}
                         </div>
                         <div className="my-6">
+                            <label className="label">
+                                <span className="label-text">Password</span>
+                            </label>
                             <input type="password"
                                 {...register("password", {
                                     required: "Password is required",

@@ -1,17 +1,67 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 import { UserContext } from '../../context/UserValidation';
 
 const SignUp = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
-    const { createNewUser } = useContext(UserContext)
+    const { createNewUser, updateUser } = useContext(UserContext)
+    const [authError, setAuthError] = useState("")
+    const [loader, setLoader] = useState(false);
+
     // navigate for after sign up user will be route into home
     const navigate = useNavigate()
-
+    const imageHostKey = process.env.REACT_APP_imgbb_key;
+    // console.log(imageHostKey)
     const handleRegister = data => {
-        console.log(data)
+        // console.log(data)
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
+        fetch(url, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imageData => {
+                if (imageData.success) {
+                    console.log(imageData.data.url)
+                    const name = data?.name;
+                    const email = data?.email;
+                    const password = data?.password;
+                    const imageURL = imageData.data.url;
+                    createNewUser(email, password)
+                        .then(result => {
+                            const displayName = data.name;
+                            const photoURL = imageURL;
+                            const userInfo = {
+                                displayName,
+                                photoURL
+                            }
+                            setLoader(true)
+                            updateUser(userInfo)
+                                .then(() => { })
+                                .catch(err => console.error(err))
+                            const user = result.user;
+                            console.log(user)
+                            toast.success("Account created successfully!")
+                            reset()
+                            setLoader(false)
+                            navigate('/')
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            setAuthError(err.message);
+                        })
+                }
+            })
+            .catch(err => console.error(err))
     }
+    
+
     return (
         <div className='container mx-auto'>
             <div className="w-full max-h-auto d-block min-h-screen p-4 flex items-center justify-center" >
