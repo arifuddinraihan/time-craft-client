@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { UserContext } from '../../context/UserValidation';
 import Navbar from '../../Pages/Shared/Navbar/Navbar';
 
@@ -35,7 +35,7 @@ const DashboardLayout = () => {
                                 <li><a>Add a product for Seller only</a></li>
                                 <li><a>My Products for Seller only</a></li>
                                 <li><a>My Buyers for Seller only</a></li>
-                                <li><a>All Buyers for Admin only</a></li>
+                                <li><Link to={'/dashboard/admin/buyers'}>All Buyers for Admin only</Link></li>
                                 <li><a>All Sellers for Admin only</a></li>
                                 <li><a>Reported Items for Admin only</a></li>
                             </ul>

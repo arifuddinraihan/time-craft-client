@@ -2,18 +2,29 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
-import { ClipLoader } from 'react-spinners';
 import { UserContext } from '../../context/UserValidation';
+import useToken from '../../Hook/useToken';
 
 const SignUp = () => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm()
-    const { createNewUser, updateUser, setLoader } = useContext(UserContext)
-    const [authError, setAuthError] = useState("")
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { createNewUser, updateUser, setLoader } = useContext(UserContext);
+    const [authError, setAuthError] = useState("");
+    
+    // Token used here to call the JWT
+    const [createdUserEmail, setCreatedUserEmail] = useState("");
+    const [token] = useToken(createdUserEmail);
 
     // navigate for after sign up user will be route into home
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const imageHostKey = process.env.REACT_APP_imgbb_key;
     // console.log(imageHostKey)
+
+    // If token found from useToken hook then user will be navigate to home page
+    if (token) {
+        toast.success("Account created successfully!");
+        navigate('/');
+    }
+    
     const handleRegister = data => {
         // console.log(data)
         const image = data.image[0];
@@ -47,14 +58,15 @@ const SignUp = () => {
                                     const userData = { name, email, imageURL, role, contact }
                                     saveUserData(userData)
                                     setLoader(false)
+                                    reset()
                                 })
                                 .catch(err => console.error(err))
-                            const user = result.user;
+                            const user = result?.user;
                             console.log(user)
                         })
                         .catch(err => {
                             console.error(err);
-                            setAuthError(err.message);
+                            setAuthError(err?.message);
                         })
                 }
                 console.log(authError)
@@ -73,9 +85,7 @@ const SignUp = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
-                    reset()
-                    navigate('/')
-                    toast.success("Account created successfully!")
+                    setCreatedUserEmail(userData?.email)
                 }
             })
             .catch(error => console.error(error))

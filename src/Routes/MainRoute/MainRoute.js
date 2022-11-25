@@ -3,6 +3,7 @@ import DashboardLayout from "../../Layouts/DashboardLayout/DashboardLayout";
 import MainLayout from "../../Layouts/MainLayout/MainLayout"
 import Blog from "../../Pages/Blog/Blog";
 import AdminDashboard from "../../Pages/DashboardPage/AdminDashboard/AdminDashboard";
+import AllBuyers from "../../Pages/DashboardPage/AdminDashboard/AllBuyers/AllBuyers";
 import DashboardPanel from "../../Pages/DashboardPage/DashboardPanel/DashboardPanel";
 import HomePageLayout from "../../Pages/HomePage/HomePageLayout/HomePageLayout";
 import Login from "../../Pages/Login/Login";
@@ -43,9 +44,13 @@ const mainRoute = createBrowserRouter([
                 path: '/dashboard',
                 element: <DashboardPanel></DashboardPanel>
             },
+            // {
+            //     path: '/dashboard/admin',
+            //     element: <AdminDashboard></AdminDashboard>
+            // },
             {
-                path: '/dashboard/admin',
-                element: <AdminDashboard></AdminDashboard>
+                path: '/dashboard/admin/buyers',
+                element: <AllBuyers></AllBuyers>
             },
         ]
     }
