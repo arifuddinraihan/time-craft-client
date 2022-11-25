@@ -1,9 +1,9 @@
 import React from 'react';
-import ClockLoader from "react-spinners/ClipLoader";
+import ClockLoader from "react-spinners/ClockLoader";
 
 const SpinnerPrimary = () => {
     return (
-        <div className='flex justify-center min-h-16'>
+        <div className='flex justify-center content-center min-h-screen items-center'>
             <ClockLoader color="#f59e0b"></ClockLoader>
         </div>
     );

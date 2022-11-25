@@ -5,18 +5,29 @@ import { UserContext } from '../../context/UserValidation';
 import { FaGoogle } from "react-icons/fa";
 import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from 'firebase/auth';
+import useToken from '../../Hook/useToken';
 
 const Login = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const { signIn, loginProvider, setLoader, forgetPassLinkToEmail } = useContext(UserContext)
     const [loginError, setLoginError] = useState('');
-    const [userEmail, setUserEmail] = useState('');
 
+    // User Email state for forget password
+    const [userEmailForgetPass, setUserEmail] = useState('');
+
+    // User Email after user logged in
+    const [loginUserEmail, setLoginUserEmail] = useState('');
+    const [token] = useToken(loginUserEmail);
     // navigate for after login user will be route into home
     const location = useLocation();
     const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || '/';
+
+    if (token) {
+        navigate(from, { replace: true })
+    }
+
 
     // Google Login Handle
     const googleLoginProvider = new GoogleAuthProvider();
@@ -26,8 +37,14 @@ const Login = () => {
             .then(res => {
                 setLoader(false)
                 const user = res.user
-                navigate(from, { replace: true })
-                toast.success('Successfully Logged in!')
+                // console.log(user)
+                const userData = {
+                    name: user?.displayName,
+                    email: user?.email,
+                    imageURL: user?.photoURL,
+                    role: 'buyer'
+                }
+                saveGoogleUserData(userData)
             })
             .catch(error => {
                 toast.error(`${error.message}`)
@@ -41,9 +58,9 @@ const Login = () => {
         setLoginError('')
         signIn(data.email, data.password)
             .then(result => {
-                toast.success("Logged in Successfully!");
                 reset();
-                navigate(from, { replace: true });
+                toast.success('Successfully Logged in!')
+                setLoginUserEmail(data.email)
             })
             .catch(error => {
                 toast.error(`${error.message}`)
@@ -58,11 +75,11 @@ const Login = () => {
         setUserEmail(email);
     }
     const passwordReset = event => {
-        if (!userEmail) {
+        if (!userEmailForgetPass) {
             toast.error('Please provide an email.')
             return;
         }
-        forgetPassLinkToEmail(userEmail)
+        forgetPassLinkToEmail(userEmailForgetPass)
             .then(() => {
                 toast.success('Reset link sent. Please check your email.')
                 setLoginError('')
@@ -71,6 +88,26 @@ const Login = () => {
                 const errorMessage = error.message;
                 setLoginError(errorMessage)
             });
+    }
+
+    // Save Google User Data
+    const saveGoogleUserData = (userData) => {
+        setLoginUserEmail('')
+        fetch('http://localhost:5000/users', {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Successfully Logged in!')
+                    setLoginUserEmail(userData?.email)
+                }
+            })
+            .catch(error => console.error(error))
     }
 
     return (
@@ -104,7 +141,7 @@ const Login = () => {
                                 placeholder="********" />
                             <label className="label">
                                 <Link onClick={passwordReset}
-                                className="label-text text-xs hover:underline hover:underline-offset-1">Forgot Password</Link>
+                                    className="label-text text-xs hover:underline hover:underline-offset-1">Forgot Password</Link>
                             </label>
                             {errors.password && <p className='text-error my-2'>{errors.password.message}</p>}
                         </div>

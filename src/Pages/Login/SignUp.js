@@ -21,7 +21,6 @@ const SignUp = () => {
 
     // If token found from useToken hook then user will be navigate to home page
     if (token) {
-        toast.success("Account created successfully!");
         navigate('/');
     }
     
@@ -44,7 +43,6 @@ const SignUp = () => {
                     const password = data?.password;
                     const imageURL = imageData.data.url;
                     const role = data?.role;
-                    const contact = data?.phone;
                     createNewUser(email, password)
                         .then(result => {
                             const displayName = data.name;
@@ -55,7 +53,7 @@ const SignUp = () => {
                             }
                             updateUser(userInfo)
                                 .then(() => {
-                                    const userData = { name, email, imageURL, role, contact }
+                                    const userData = { name, email, imageURL, role }
                                     saveUserData(userData)
                                     setLoader(false)
                                     reset()
@@ -85,6 +83,7 @@ const SignUp = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
+                    toast.success("Account created successfully!");
                     setCreatedUserEmail(userData?.email)
                 }
             })
@@ -126,11 +125,6 @@ const SignUp = () => {
                             <input type="text" {...register("email", { required: "Your email is required." })}
                                 className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200" placeholder="Your Email" />
                             {errors.email && <p className='text-error my-2'>{errors.email.message}</p>}
-                        </div>
-                        <div className='my-6'>
-                            <input type="phone" {...register("phone", { required: "Your phone is required." })}
-                                className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200" placeholder="Phone " />
-                            {errors.phone && <p className='text-error my-2'>{errors.phone.message}</p>}
                         </div>
                         <div className="my-6">
                             <input type="password"
