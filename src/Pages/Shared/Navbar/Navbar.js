@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { UserContext } from '../../../context/UserValidation';
+import { FaUser } from 'react-icons/fa';
 
 const Navbar = () => {
     const { user, logOut } = useContext(UserContext);
@@ -42,8 +43,19 @@ const Navbar = () => {
                 <div className="navbar-end">
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img src={user?.photoURL} />
+                            <div className="w-20 rounded-full text-center p-1">
+                                {
+                                    user ?
+                                        <>
+                                            <img src={user.photoURL} className='rounded-full border border-amber-500' alt="user" />
+                                        </>
+                                        :
+                                        <>
+                                            <button className='btn btn-outline btn-ghost btn-sm btn-circle'>
+                                                <FaUser className=''></FaUser>
+                                            </button>
+                                        </>
+                                }
                             </div>
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 bg-opacity-90 rounded-box w-52 gap-2">

@@ -16,6 +16,7 @@ const UserValidation = ({ children }) => {
     }
 
     const updateUser = (userInfo) => {
+        setLoader(true)
         return updateProfile(auth.currentUser, userInfo);
     }
 
@@ -46,6 +47,7 @@ const UserValidation = ({ children }) => {
     const fireAuthValue = {
         user,
         loader,
+        setLoader,
         createNewUser,
         updateUser,
         signIn,

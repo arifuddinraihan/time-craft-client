@@ -7,9 +7,8 @@ import { UserContext } from '../../context/UserValidation';
 
 const SignUp = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
-    const { createNewUser, updateUser } = useContext(UserContext)
+    const { createNewUser, updateUser, setLoader } = useContext(UserContext)
     const [authError, setAuthError] = useState("")
-    const [loader, setLoader] = useState(false);
 
     // navigate for after sign up user will be route into home
     const navigate = useNavigate()
@@ -41,15 +40,13 @@ const SignUp = () => {
                                 displayName,
                                 photoURL
                             }
-                            setLoader(true)
                             updateUser(userInfo)
-                                .then(() => { })
+                                .then(() => { setLoader(false) })
                                 .catch(err => console.error(err))
                             const user = result.user;
                             console.log(user)
                             toast.success("Account created successfully!")
                             reset()
-                            setLoader(false)
                             navigate('/')
                         })
                         .catch(err => {
@@ -60,7 +57,7 @@ const SignUp = () => {
             })
             .catch(err => console.error(err))
     }
-    
+
 
     return (
         <div className='container mx-auto'>
