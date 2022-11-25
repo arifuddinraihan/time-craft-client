@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import app from '../Firebase/firebase.config';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
 
 export const UserContext = createContext();
 const auth = getAuth(app);
@@ -8,6 +8,12 @@ const auth = getAuth(app);
 const UserValidation = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loader, setLoader] = useState(true);
+
+    // Login process for social media
+    const loginProvider = (provider) => {
+        setLoader(true);
+        return signInWithPopup(auth, provider);
+    }
 
     // create a new user via firebase auth system
     const createNewUser = (email, password) => {
@@ -48,6 +54,7 @@ const UserValidation = ({ children }) => {
         user,
         loader,
         setLoader,
+        loginProvider,
         createNewUser,
         updateUser,
         signIn,

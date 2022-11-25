@@ -4,18 +4,38 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserValidation';
 import { FaGoogle } from "react-icons/fa";
 import toast from 'react-hot-toast';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
-    const { signIn } = useContext(UserContext)
-    // navigate for after sign up user will be route into home
+    const { signIn, loginProvider, setLoader } = useContext(UserContext)
     const [loginError, setLoginError] = useState('');
 
+    // navigate for after login user will be route into home
     const location = useLocation();
     const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || '/';
 
+    // Google Login Handle
+    const googleLoginProvider = new GoogleAuthProvider();
+    const googleHandle = event => {
+        // event.preventDefault();
+        loginProvider(googleLoginProvider)
+            .then(res => {
+                setLoader(false)
+                const user = res.user
+                navigate(from, { replace: true })
+                toast.success('Successfully Logged in!')
+            })
+            .catch(error => {
+                toast.error(`${error.message}`)
+                console.error(error.message);
+                setLoginError(error.message);
+            })
+    }
+
+    // Registered User login handle
     const handleLogin = data => {
         setLoginError('')
         signIn(data.email, data.password)
@@ -66,6 +86,9 @@ const Login = () => {
                                 type="submit" value="Login"
                             />
                         </div>
+                        {
+                            loginError && <p className='text-center text-error my-2'>{loginError}</p>
+                        }
                         <div className="flex justify-center ">
                             <p className="text-gray-500">Don't have an account? </p>
                             <Link to={'/register'} className="hover:text-warning hover:underline hover:underline-offset-2 pl-2">Register</Link>
@@ -73,7 +96,8 @@ const Login = () => {
                     </form>
                     <div className="divider">OR</div>
                     <div className="flex justify-center my-6">
-                        <button className="flex flex-row btn btn-outline rounded-full gap-4 text-sm md:text-lg">
+                        <button onClick={googleHandle}
+                        className="flex flex-row btn btn-outline rounded-full gap-4 text-sm md:text-lg">
                             <span>Login With Google</span> <FaGoogle></FaGoogle>
                         </button>
                     </div>

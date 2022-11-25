@@ -31,7 +31,7 @@ const Navbar = () => {
                             <svg className="swap-off fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" /></svg>
                         </label>
                     }
-                    <Link to={'/'} className="btn btn-ghost normal-case text-xl">daisyUI</Link>
+                    <Link to={'/'} className="btn btn-ghost normal-case text-xl md:text-2xl lg:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-warning to-primary">Time Craft</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0 tabs gap-2">
@@ -47,7 +47,7 @@ const Navbar = () => {
                                 {
                                     user ?
                                         <>
-                                            <img src={user.photoURL} className='rounded-full border border-amber-500' alt="user" />
+                                            <img src={user.photoURL} className='rounded-full border border-amber-500' alt={user.displayName} />
                                         </>
                                         :
                                         <>
