@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import app from '../Firebase/firebase.config';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
 
 export const UserContext = createContext();
 const auth = getAuth(app);
@@ -24,6 +24,11 @@ const UserValidation = ({ children }) => {
     const updateUser = (userInfo) => {
         setLoader(true)
         return updateProfile(auth.currentUser, userInfo);
+    }
+
+    const forgetPassLinkToEmail = (email) => {
+        setLoader(true);
+        return sendPasswordResetEmail(auth, email)
     }
 
     const signIn = (email , password) => {
@@ -58,6 +63,7 @@ const UserValidation = ({ children }) => {
         createNewUser,
         updateUser,
         signIn,
+        forgetPassLinkToEmail,
         logOut
     }
 
