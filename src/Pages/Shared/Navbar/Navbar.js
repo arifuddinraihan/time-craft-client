@@ -7,14 +7,16 @@ const Navbar = () => {
     const { user, logOut } = useContext(UserContext);
 
     const navMenu = <>
+        <NavLink className={({ isActive }) => isActive ? "btn btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-sm md:btn-md"}
+            to={'/'}>Home</NavLink>
         {
-            user && <NavLink className={({ isActive }) => isActive ? "btn btn-xs sm:btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-xs sm:btn-sm md:btn-md"}
+            user && <NavLink className={({ isActive }) => isActive ? "btn btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-sm md:btn-md"}
                 to={'/dashboard'}>Dashboard</NavLink>
         }
-        <NavLink className={({ isActive }) => isActive ? "btn btn-xs sm:btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-xs sm:btn-sm md:btn-md"}
+        <NavLink className={({ isActive }) => isActive ? "btn btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-sm md:btn-md"}
             to={'/blog'}>Blog</NavLink>
         {
-            !user && <NavLink className={({ isActive }) => isActive ? "btn btn-xs sm:btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-xs sm:btn-sm md:btn-md"}
+            !user && <NavLink className={({ isActive }) => isActive ? "btn btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-sm md:btn-md"}
                 to={'/login'}>Login</NavLink>
         }
     </>

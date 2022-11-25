@@ -32,6 +32,8 @@ const SignUp = () => {
                     const email = data?.email;
                     const password = data?.password;
                     const imageURL = imageData.data.url;
+                    const role = data?.role;
+                    const contact = data?.phone;
                     createNewUser(email, password)
                         .then(result => {
                             const displayName = data.name;
@@ -41,13 +43,14 @@ const SignUp = () => {
                                 photoURL
                             }
                             updateUser(userInfo)
-                                .then(() => { setLoader(false) })
+                                .then(() => {
+                                    const userData = { name, email, imageURL, role, contact }
+                                    saveUserData(userData)
+                                    setLoader(false)
+                                })
                                 .catch(err => console.error(err))
                             const user = result.user;
-                            toast.success("Account created successfully!")
                             console.log(user)
-                            reset()
-                            navigate('/')
                         })
                         .catch(err => {
                             console.error(err);
@@ -58,7 +61,27 @@ const SignUp = () => {
             })
             .catch(err => console.error(err))
     }
-    
+
+    const saveUserData = (userData) => {
+        fetch('http://localhost:5000/users', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    reset()
+                    navigate('/')
+                    toast.success("Account created successfully!")
+                }
+            })
+            .catch(error => console.error(error))
+    }
+
+
     return (
         <div className='container mx-auto'>
             <div className="w-full max-h-auto d-block min-h-screen p-4 flex items-center justify-center" >
