@@ -44,8 +44,8 @@ const SignUp = () => {
                                 .then(() => { setLoader(false) })
                                 .catch(err => console.error(err))
                             const user = result.user;
-                            console.log(user)
                             toast.success("Account created successfully!")
+                            console.log(user)
                             reset()
                             navigate('/')
                         })
@@ -54,11 +54,11 @@ const SignUp = () => {
                             setAuthError(err.message);
                         })
                 }
+                console.log(authError)
             })
             .catch(err => console.error(err))
     }
-
-
+    
     return (
         <div className='container mx-auto'>
             <div className="w-full max-h-auto d-block min-h-screen p-4 flex items-center justify-center" >
@@ -123,6 +123,9 @@ const SignUp = () => {
                                 type="submit" value="CREATE ACCOUNT"
                             />
                         </div>
+                        {
+                            authError && <p className='text-center text-error my-2'>{authError}</p>
+                        }
                         <div className="flex justify-center ">
                             <p className="text-gray-500">Already have an account? </p>
                             <Link to={'/login'} className="hover:text-warning hover:underline hover:underline-offset-2 pl-2">Sign In</Link>

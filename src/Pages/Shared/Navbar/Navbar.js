@@ -42,8 +42,8 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end">
                     <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                            <div className="w-20 rounded-full text-center p-1">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar p-1">
+                            <div className="w-20 rounded-full text-center">
                                 {
                                     user ?
                                         <>
