@@ -58,7 +58,7 @@ const Login = () => {
         setLoginError('')
         signIn(data.email, data.password)
             .then(result => {
-                reset();
+                // reset();
                 toast.success('Successfully Logged in!')
                 setLoginUserEmail(data.email)
             })

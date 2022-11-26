@@ -82,6 +82,7 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 if (data.acknowledged) {
                     toast.success("Account created successfully!");
                     setCreatedUserEmail(userData?.email)

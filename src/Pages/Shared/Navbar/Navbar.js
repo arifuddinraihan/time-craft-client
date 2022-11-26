@@ -23,6 +23,12 @@ const Navbar = () => {
     // location tracker for conditional modal button render in navbar
     const location = useLocation();
     const dashboardPath = location.pathname;
+    
+    const handleLogout = () => {
+        localStorage.removeItem('as12tc-token')
+        logOut()
+    }
+
 
     return (
         <div className='bg-base-100'>
@@ -65,7 +71,7 @@ const Navbar = () => {
                                 navMenu
                             }
                             {
-                                user && <li onClick={() => logOut()} className="btn btn-xs sm:btn-sm md:btn-md btn-ghost">Logout</li>
+                                user && <li onClick={handleLogout} className="btn btn-xs sm:btn-sm md:btn-md btn-ghost">Logout</li>
                             }
                         </ul>
                     </div>

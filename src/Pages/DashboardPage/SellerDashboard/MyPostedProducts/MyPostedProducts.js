@@ -7,7 +7,7 @@ import { MdCancel } from "react-icons/md";
 
 const MyPostedProducts = () => {
     const { user } = useContext(UserContext)
-    const url = `http://localhost:5000/allProducts?email=${user?.email}`;
+    const url = `http://localhost:5000/allProducts/seller?email=${user?.email}`;
     const { data: productArray = [], refetch, isLoading } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
@@ -25,7 +25,7 @@ const MyPostedProducts = () => {
         return <SpinnerPrimary></SpinnerPrimary>
     }
     return (
-        <div>
+        <div className='mx-4 md:mx-10'>
             <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>Your Posted Product list</h2>
             <div>
                 <div className="overflow-x-auto w-full">

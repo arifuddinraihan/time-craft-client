@@ -22,7 +22,7 @@ const DashboardLayout = () => {
                     </div>
                     <div className="drawer-side">
                         <label htmlFor="dashboard-panel-drawer" className="drawer-overlay"></label>
-                        <div className="flex flex-col items-center pt-3 bg-base-100">
+                        <div className="flex flex-col items-center pt-3 bg-base-100 w-80">
                             <div className='flex flex-col items-center my-4'>
                                 <img className="object-cover w-24 h-24 mx-2 rounded-full" 
                                 src={user?.photoURL} alt="avatar" />
