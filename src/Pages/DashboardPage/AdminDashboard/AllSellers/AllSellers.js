@@ -1,14 +1,14 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-import { useQuery, } from '@tanstack/react-query'
 import SpinnerPrimary from '../../../../components/Spinner/SpinnerPrimary';
 import { UserContext } from '../../../../context/UserValidation';
 import toast from 'react-hot-toast';
 import { MdCancel } from "react-icons/md";
 
 
-const AllBuyers = () => {
+const AllSellers = () => {
     const { user } = useContext(UserContext)
-    const url = `http://localhost:5000/users/buyers?email=${user?.email}`;
+    const url = `http://localhost:5000/users/sellers?email=${user?.email}`;
     const { data: usersArray = [], refetch, isLoading } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
@@ -41,10 +41,9 @@ const AllBuyers = () => {
     if (isLoading) {
         return <SpinnerPrimary></SpinnerPrimary>
     }
-
     return (
         <div>
-            <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>All Buyers list</h2>
+            <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>All Sellers list</h2>
             <div>
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">
@@ -82,7 +81,7 @@ const AllBuyers = () => {
                                             {user?.role}
                                         </td>
                                         <td>{user?.email}</td>
-                                        <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>Make Admin</button></td>
+                                        <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>Verify Seller</button></td>
                                         <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>< MdCancel></MdCancel></button></td>
                                     </tr>
                                 )
@@ -95,4 +94,4 @@ const AllBuyers = () => {
     );
 };
 
-export default AllBuyers;
+export default AllSellers;

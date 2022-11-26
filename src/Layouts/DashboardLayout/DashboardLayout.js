@@ -33,10 +33,10 @@ const DashboardLayout = () => {
                                 <li><a>My orders for Buyer only</a></li>
                                 <li><a>Wishlist for Buyer only</a></li>
                                 <li><Link to={'/dashboard/buyer/addProduct'}>Add A Product</Link></li>
-                                <li><a>My Products for Seller only</a></li>
+                                <li><Link to={'/dashboard/buyer/MyProducts/'}>My Products for Seller only</Link></li>
                                 <li><a>My Buyers for Seller only</a></li>
                                 <li><Link to={'/dashboard/admin/buyers'}>All Buyers for Admin only</Link></li>
-                                <li><a>All Sellers for Admin only</a></li>
+                                <li><Link to={'/dashboard/admin/sellers'}>All Sellers for Admin only</Link></li>
                                 <li><a>Reported Items for Admin only</a></li>
                             </ul>
                         </div>

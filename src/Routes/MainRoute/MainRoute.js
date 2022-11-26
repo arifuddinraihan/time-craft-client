@@ -4,9 +4,10 @@ import MainLayout from "../../Layouts/MainLayout/MainLayout"
 import Blog from "../../Pages/Blog/Blog";
 import AdminDashboard from "../../Pages/DashboardPage/AdminDashboard/AdminDashboard";
 import AllBuyers from "../../Pages/DashboardPage/AdminDashboard/AllBuyers/AllBuyers";
+import AllSellers from "../../Pages/DashboardPage/AdminDashboard/AllSellers/AllSellers";
 import DashboardPanel from "../../Pages/DashboardPage/DashboardPanel/DashboardPanel";
 import AddAProduct from "../../Pages/DashboardPage/SellerDashboard/AddAProduct/AddAProduct";
-import DemoForm from "../../Pages/DashboardPage/SellerDashboard/DemoForm";
+import MyPostedProducts from "../../Pages/DashboardPage/SellerDashboard/MyPostedProducts/MyPostedProducts";
 import HomePageLayout from "../../Pages/HomePage/HomePageLayout/HomePageLayout";
 import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/Login/SignUp";
@@ -55,8 +56,16 @@ const mainRoute = createBrowserRouter([
                 element: <AllBuyers></AllBuyers>
             },
             {
+                path: '/dashboard/admin/sellers',
+                element: <AllSellers></AllSellers>
+            },
+            {
                 path: '/dashboard/buyer/addProduct',
                 element: <AddAProduct></AddAProduct>
+            },
+            {
+                path: '/dashboard/buyer/MyProducts/',
+                element: <MyPostedProducts></MyPostedProducts>
             },
         ]
     }
