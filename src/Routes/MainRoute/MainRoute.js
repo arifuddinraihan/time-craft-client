@@ -14,6 +14,7 @@ import SignUp from "../../Pages/Login/SignUp";
 import ErrorPage from "../../Pages/Shared/ErrorPage/ErrorPage";
 import AdminOnlyRoute from "../AdminOnlyRoute/AdminOnlyRoute";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import SellerRoute from "../SellerRoute/SellerRoute";
 
 const mainRoute = createBrowserRouter([
     {
@@ -61,12 +62,12 @@ const mainRoute = createBrowserRouter([
                 element: <AdminOnlyRoute><AllSellers></AllSellers></AdminOnlyRoute>
             },
             {
-                path: '/dashboard/buyer/addProduct',
-                element: <AddAProduct></AddAProduct>
+                path: '/dashboard/seller/addProduct',
+                element: <SellerRoute><AddAProduct></AddAProduct></SellerRoute>
             },
             {
-                path: '/dashboard/buyer/MyProducts/',
-                element: <MyPostedProducts></MyPostedProducts>
+                path: '/dashboard/seller/MyProducts',
+                element: <SellerRoute><MyPostedProducts></MyPostedProducts></SellerRoute>
             },
         ]
     }

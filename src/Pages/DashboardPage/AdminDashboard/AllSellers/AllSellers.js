@@ -1,13 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import SpinnerPrimary from '../../../../components/Spinner/SpinnerPrimary';
 import { UserContext } from '../../../../context/UserValidation';
 import toast from 'react-hot-toast';
 import { MdCancel } from "react-icons/md";
 import { MdVerifiedUser } from "react-icons/md";
+import ConfirmationModal from '../../../../components/ConfirmarionModal/ConfirmationModal';
 
 
 const AllSellers = () => {
+    const [deletingSeller, setDeletingSeller] = useState(null);
+
+    const closeModal = () => {
+        setDeletingSeller(null);
+    }
     const { user } = useContext(UserContext)
     const url = `http://localhost:5000/users/sellers?email=${user?.email}`;
     const { data: usersArray = [], refetch, isLoading } = useQuery({
@@ -24,7 +30,6 @@ const AllSellers = () => {
     })
 
     const handleVerifySeller = id => {
-        console.log(`verify is working for ${id}`)
         fetch(`http://localhost:5000/users/sellers/${id}`, {
             method: 'PUT',
             headers: {
@@ -41,12 +46,31 @@ const AllSellers = () => {
             })
     }
 
+    const handleDeleteSeller = seller => {
+        fetch(`http://localhost:5000/users/sellers/${seller?._id}`, {
+            method : "DELETE",
+            headers : {
+                authorization: `bearer ${localStorage.getItem('as12tc-token')}`
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.deletedCount > 0){
+                refetch();
+                toast.success(`Seller ${seller.name} deleted successfully`)
+            }
+        })
+    }
+
     if (isLoading) {
         return <SpinnerPrimary></SpinnerPrimary>
     }
+
     return (
         <div>
-            <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>All Sellers list</h2>
+            <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>
+                {usersArray.length > 0 ? `${usersArray.length} Sellers are currently registered` : "No Seller is registered yet"}
+            </h2>
             <div>
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">
@@ -54,7 +78,6 @@ const AllSellers = () => {
                             <tr>
                                 <th>Serial</th>
                                 <th>User Information</th>
-                                <th>Role</th>
                                 <th>Email</th>
                                 <th>Make Admin</th>
                                 <th>Delete</th>
@@ -80,19 +103,18 @@ const AllSellers = () => {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
-                                            {user?.role}
-                                        </td>
                                         <td>{user?.email}</td>
                                         <td>
                                             {
                                                 user?.verifySeller !== "yes" ? <button onClick={() => handleVerifySeller(user._id)}
-                                                className='btn btn-sm text-center btn-ghost text-amber-500'>Verify Seller</button>
-                                                :
-                                                <button className='btn btn-sm text-center btn-ghost text-amber-500'><MdVerifiedUser></MdVerifiedUser></button>
+                                                    className='btn btn-sm text-center btn-ghost text-amber-500'>Verify Seller</button>
+                                                    :
+                                                    <button className='btn btn-sm text-center btn-ghost text-amber-500'><MdVerifiedUser></MdVerifiedUser></button>
                                             }
                                         </td>
-                                        <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>< MdCancel></MdCancel></button></td>
+                                        <td>
+                                            <label onClick={() => setDeletingSeller(user)} htmlFor="confirmation-modal" className="btn">< MdCancel></MdCancel></label>
+                                        </td>
                                     </tr>
                                 )
                             }
@@ -100,6 +122,17 @@ const AllSellers = () => {
                     </table>
                 </div>
             </div>
+            {
+                deletingSeller && <ConfirmationModal
+                    title={`Are you sure you want to remove?`}
+                    message={`If you delete ${deletingSeller.name}. It cannot be undone.`}
+                    successAction={handleDeleteSeller}
+                    successButtonName="remove"
+                    modalData={deletingSeller}
+                    closeModal={closeModal}
+
+                ></ConfirmationModal>
+            }
         </div>
     );
 };

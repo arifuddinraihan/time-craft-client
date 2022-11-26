@@ -26,7 +26,11 @@ const MyPostedProducts = () => {
     }
     return (
         <div className='mx-4 md:mx-10'>
-            <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>Your Posted Product list</h2>
+            <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>
+                {
+                    productArray.length > 0 ? `List of your ${productArray.length} products` : "You have not posted any product yet!"
+                }
+            </h2>
             <div>
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">

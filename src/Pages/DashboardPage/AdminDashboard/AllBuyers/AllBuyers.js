@@ -1,12 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useQuery, } from '@tanstack/react-query'
 import SpinnerPrimary from '../../../../components/Spinner/SpinnerPrimary';
 import { UserContext } from '../../../../context/UserValidation';
 import toast from 'react-hot-toast';
 import { MdCancel } from "react-icons/md";
+import ConfirmationModal from '../../../../components/ConfirmarionModal/ConfirmationModal';
 
 
 const AllBuyers = () => {
+    const [deletingBuyer, setDeletingBuyer] = useState(null);
+
+    const closeModal = () => {
+        setDeletingBuyer(null);
+    }
     const { user } = useContext(UserContext)
     const url = `http://localhost:5000/users/buyers?email=${user?.email}`;
     const { data: usersArray = [], refetch, isLoading } = useQuery({
@@ -39,13 +45,31 @@ const AllBuyers = () => {
             })
     }
 
+    const handleDeleteBuyer = buyer => {
+        fetch(`http://localhost:5000/users/buyers/${buyer?._id}`, {
+            method : "DELETE",
+            headers : {
+                authorization: `bearer ${localStorage.getItem('as12tc-token')}`
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.deletedCount > 0){
+                refetch();
+                toast.success(`Seller ${buyer.name} deleted successfully`)
+            }
+        })
+    }
+
     if (isLoading) {
         return <SpinnerPrimary></SpinnerPrimary>
     }
 
     return (
         <div>
-            <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>All Buyers list</h2>
+            <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>
+                {usersArray.length > 0 ? `${usersArray.length} Buyers are currently registered` : "No Buyer is registered yet"}
+            </h2>
             <div>
                 <div className="overflow-x-auto w-full">
                     <table className="table w-full">
@@ -53,7 +77,6 @@ const AllBuyers = () => {
                             <tr>
                                 <th>Serial</th>
                                 <th>User Information</th>
-                                <th>Role</th>
                                 <th>Email</th>
                                 <th>Make Admin</th>
                                 <th>Delete</th>
@@ -79,16 +102,15 @@ const AllBuyers = () => {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
-                                            {user?.role}
-                                        </td>
                                         <td>{user?.email}</td>
                                         <td>{
-                                            user?.admin !== "yes" && <button onClick={() => handleMakeAdmin(user._id)}
+                                            user?.role !== "admin" && <button onClick={() => handleMakeAdmin(user._id)}
                                                 className='btn btn-sm text-center btn-primary'>Make Admin</button>
                                         }
                                         </td>
-                                        <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>< MdCancel></MdCancel></button></td>
+                                        <td>
+                                            <label onClick={() => setDeletingBuyer(user)} htmlFor="confirmation-modal" className="btn">< MdCancel></MdCancel></label>
+                                        </td>
                                     </tr>
                                 )
                             }
@@ -96,6 +118,17 @@ const AllBuyers = () => {
                     </table>
                 </div>
             </div>
+            {
+                deletingBuyer && <ConfirmationModal
+                    title={`Are you sure you want to remove?`}
+                    message={`If you delete ${deletingBuyer.name}. It cannot be undone.`}
+                    successAction={handleDeleteBuyer}
+                    successButtonName="remove"
+                    modalData={deletingBuyer}
+                    closeModal={closeModal}
+
+                ></ConfirmationModal>
+            }
         </div>
     );
 };
