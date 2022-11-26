@@ -5,7 +5,7 @@ import moment from 'moment/moment';
 import toast from 'react-hot-toast';
 
 const AddAProduct = () => {
-    const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { user } = useContext(UserContext)
     const imageHostKey = process.env.REACT_APP_imgbb_key;
     // moment.js current time
@@ -32,6 +32,9 @@ const AddAProduct = () => {
                     const productPostTime = currentTime;
                     const sellerName = user?.displayName;
                     const sellerEmail = user?.email;
+                    const productCondition = data?.condition;
+                    const sellerContact = data?.phone;
+                    const productDetails = data?.productDetails
 
                     const newPostedProduct = {
                         productImgURL,
@@ -44,6 +47,10 @@ const AddAProduct = () => {
                         productPostTime,
                         sellerName,
                         sellerEmail,
+                        productCondition,
+                        sellerContact,
+                        productDetails,
+                        status : "available"
                     }
                     fetch('http://localhost:5000/allProducts', {
                         method: "POST",
@@ -99,12 +106,31 @@ const AddAProduct = () => {
                             {errors.name && <p className='text-error my-2'>{errors.name.message}</p>}
                         </div>
                         <div className='my-2'>
+                            <label>Product Condition*</label>
+                            <select type="text" {...register("condition", { required: "Product Condition is required." })}
+                                className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200 mt-2"
+                            >
+                                <option selected value="Classic Watch">Excellent</option>
+                                <option value="Smart Watch">Good</option>
+                                <option value="Vintage Watch">Fair</option>
+                            </select>
+                            {errors.condition && <p className='text-error my-2'>{errors.condition.message}</p>}
+                        </div>
+                        <div className='my-2'>
                             <label>Location of product*</label>
                             <input type="text" {...register("location", { required: "Product Location is required." })}
                                 className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200 mt-2"
 
                             />
                             {errors.location && <p className='text-error my-2'>{errors.location.message}</p>}
+                        </div>
+                        <div className='my-2'>
+                            <label>Your Contact Number*</label>
+                            <input type="text" {...register("phone", { required: "Your Contact Number is required." })}
+                                className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200 mt-2"
+
+                            />
+                            {errors.phone && <p className='text-error my-2'>{errors.phone.message}</p>}
                         </div>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <div className='my-2'>
@@ -134,28 +160,21 @@ const AddAProduct = () => {
                                 {errors.usedTime && <p className='text-error my-2'>{errors.usedTime.message}</p>}
                             </div>
                             <div className='my-2'>
-                                <label>Post time</label>
-                                <input type="text" {...register("postTime")}
+                                <label>Year of purchase</label>
+                                <input type="number" {...register("purchaseYear" ,{required : "Purchase Year is required"})}
                                     className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200 mt-2"
-                                    defaultValue={currentTime} disabled
+                                    placeholder='2020'
                                 />
+                                {errors.purchaseYear && <p className='text-error my-2'>{errors.purchaseYear.message}</p>}
                             </div>
                         </div>
-                        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                            <div className='my-2'>
-                                <label>Seller Name*</label>
-                                <input type="text" {...register("sellerName")}
-                                    className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200 mt-2"
-                                    defaultValue={user?.displayName} disabled
-                                />
-                            </div>
-                            <div className='my-2'>
-                                <label>Seller's Email*</label>
-                                <input type="text" {...register("sellerEmail")}
-                                    className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200 mt-2"
-                                    defaultValue={user?.email} disabled
-                                />
-                            </div>
+                        <div className='my-2'>
+                            <label>Product details*</label>
+                            <input type="textarea" {...register("productDetails")}
+                                className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200 mt-2"
+                                placeholder='Description of the product'
+                            />
+                            {errors.productDetails && <p className='text-error my-2'>{errors.productDetails.message}</p>}
                         </div>
                         <div className="flex justify-center my-4">
                             <input className="btn btn-outline rounded-full w-full sm:w-56 text-lg font-semibold "

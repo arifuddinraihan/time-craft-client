@@ -6,8 +6,8 @@ import { FaUserTag } from "react-icons/fa";
 import { TfiLocationPin } from "react-icons/tfi";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 
-const SingleProduct = ({product}) => {
-    const {_id, productImgURL, category, productName, productLocation, resalePrice, originalPrice, productUsedFor, productPostTime, sellerName} = product;
+const SingleProduct = ({ product, handleBookingModal }) => {
+    const { _id, productImgURL, category, productName, productLocation, resalePrice, originalPrice, productUsedFor, productPostTime, sellerName } = product;
     return (
         <div>
             <div className="w-full max-w-sm overflow-hidden bg-amber-50 rounded-lg shadow-lg">
@@ -43,9 +43,11 @@ const SingleProduct = ({product}) => {
 
                     <div className="flex flex-col items-center mt-4 text-gray-700">
                         <p className="px-2 text-sm">Posted on {productPostTime}</p>
-                        <button className='btn btn-outline btn-success btn-block my-2'>
+                        <label onClick={() => handleBookingModal(product)}
+                            htmlFor="product-book-modal"
+                            className='btn btn-outline btn-success btn-block my-2'>
                             <span className='text-slate-800 font-bold flex gap-2'>Book Now <BsFillBookmarkStarFill></BsFillBookmarkStarFill></span>
-                        </button>
+                        </label>
                     </div>
                 </div>
             </div>
