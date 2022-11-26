@@ -5,7 +5,7 @@ import moment from 'moment/moment';
 import toast from 'react-hot-toast';
 
 const AddAProduct = () => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm();
     const { user } = useContext(UserContext)
     const imageHostKey = process.env.REACT_APP_imgbb_key;
     // moment.js current time
@@ -29,9 +29,9 @@ const AddAProduct = () => {
                     const resalePrice = data?.resalePrice;
                     const originalPrice = data?.originalPrice;
                     const productUsedFor = data?.usedTime;
-                    const productPostTime = data?.postTime;
-                    const sellerName = data?.sellerName;
-                    const sellerEmail = data?.sellerEmail;
+                    const productPostTime = currentTime;
+                    const sellerName = user?.displayName;
+                    const sellerEmail = user?.email;
 
                     const newPostedProduct = {
                         productImgURL,
