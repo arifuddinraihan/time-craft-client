@@ -4,6 +4,7 @@ import SpinnerPrimary from '../../../../components/Spinner/SpinnerPrimary';
 import { UserContext } from '../../../../context/UserValidation';
 import toast from 'react-hot-toast';
 import { MdCancel } from "react-icons/md";
+import { MdVerifiedUser } from "react-icons/md";
 
 
 const AllSellers = () => {
@@ -22,22 +23,23 @@ const AllSellers = () => {
         }
     })
 
-    // const handleMakeAdmin = id => {
-    //     fetch(`http://localhost:5000/users/admin/${id}`, {
-    //         method: 'PUT',
-    //         headers: {
-    //             authorization: `bearer ${localStorage.getItem('as12tc-token')}`
-    //         }
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data)
-    //             if (data.modifiedCount > 0) {
-    //                 toast.success('Make admin successful.')
-    //                 refetch();
-    //             }
-    //         })
-    // }
+    const handleVerifySeller = id => {
+        console.log(`verify is working for ${id}`)
+        fetch(`http://localhost:5000/users/sellers/${id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('as12tc-token')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    toast.success('Seller is verified.')
+                    refetch();
+                }
+            })
+    }
 
     if (isLoading) {
         return <SpinnerPrimary></SpinnerPrimary>
@@ -82,7 +84,14 @@ const AllSellers = () => {
                                             {user?.role}
                                         </td>
                                         <td>{user?.email}</td>
-                                        <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>Verify Seller</button></td>
+                                        <td>
+                                            {
+                                                user?.verifySeller !== "yes" ? <button onClick={() => handleVerifySeller(user._id)}
+                                                className='btn btn-sm text-center btn-ghost text-amber-500'>Verify Seller</button>
+                                                :
+                                                <button className='btn btn-sm text-center btn-ghost text-amber-500'><MdVerifiedUser></MdVerifiedUser></button>
+                                            }
+                                        </td>
                                         <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>< MdCancel></MdCancel></button></td>
                                     </tr>
                                 )
