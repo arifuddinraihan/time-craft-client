@@ -11,6 +11,7 @@ import MyPostedProducts from "../../Pages/DashboardPage/SellerDashboard/MyPosted
 import HomePageLayout from "../../Pages/HomePage/HomePageLayout/HomePageLayout";
 import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/Login/SignUp";
+import ProductsPage from "../../Pages/ProductsPage/ProductsPage";
 import ErrorPage from "../../Pages/Shared/ErrorPage/ErrorPage";
 import AdminOnlyRoute from "../AdminOnlyRoute/AdminOnlyRoute";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -24,53 +25,59 @@ const mainRoute = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <HomePageLayout></HomePageLayout>
+                element: <HomePageLayout></HomePageLayout>,
+                loader: () => fetch('http://localhost:5000/productsCategory')
             },
             {
                 path: '/blog',
                 element: <Blog></Blog>
             },
             {
-                path: '/login',
-                element: <Login></Login>
+                path: '/category/products/:name',
+                element: <ProtectedRoute><ProductsPage></ProductsPage></ProtectedRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/categoryProduct/${params.name}`)
             },
-            {
-                path: '/register',
-                element: <SignUp></SignUp>
-            },
+{
+    path: '/login',
+        element: <Login></Login>
+},
+{
+    path: '/register',
+        element: <SignUp></SignUp>
+},
         ]
     },
-    {
-        path: '/dashboard',
+{
+    path: '/dashboard',
         errorElement: <ErrorPage></ErrorPage>,
-        element: <ProtectedRoute><DashboardLayout></DashboardLayout></ProtectedRoute>,
-        children: [
-            {
-                path: '/dashboard',
-                element: <DashboardPanel></DashboardPanel>
-            },
-            {
-                path: '/dashboard/admin',
-                element: <AdminDashboard></AdminDashboard>
-            },
-            {
-                path: '/dashboard/admin/buyers',
-                element: <AdminOnlyRoute><AllBuyers></AllBuyers></AdminOnlyRoute>
-            },
-            {
-                path: '/dashboard/admin/sellers',
-                element: <AdminOnlyRoute><AllSellers></AllSellers></AdminOnlyRoute>
-            },
-            {
-                path: '/dashboard/seller/addProduct',
-                element: <SellerRoute><AddAProduct></AddAProduct></SellerRoute>
-            },
-            {
-                path: '/dashboard/seller/MyProducts',
-                element: <SellerRoute><MyPostedProducts></MyPostedProducts></SellerRoute>
-            },
-        ]
-    }
+            element: <ProtectedRoute><DashboardLayout></DashboardLayout></ProtectedRoute>,
+                children: [
+                    {
+                        path: '/dashboard',
+                        element: <DashboardPanel></DashboardPanel>
+                    },
+                    {
+                        path: '/dashboard/admin',
+                        element: <AdminDashboard></AdminDashboard>
+                    },
+                    {
+                        path: '/dashboard/admin/buyers',
+                        element: <AdminOnlyRoute><AllBuyers></AllBuyers></AdminOnlyRoute>
+                    },
+                    {
+                        path: '/dashboard/admin/sellers',
+                        element: <AdminOnlyRoute><AllSellers></AllSellers></AdminOnlyRoute>
+                    },
+                    {
+                        path: '/dashboard/seller/addProduct',
+                        element: <SellerRoute><AddAProduct></AddAProduct></SellerRoute>
+                    },
+                    {
+                        path: '/dashboard/seller/MyProducts',
+                        element: <SellerRoute><MyPostedProducts></MyPostedProducts></SellerRoute>
+                    },
+                ]
+}
 ])
 
 export default mainRoute;
