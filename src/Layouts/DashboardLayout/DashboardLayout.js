@@ -29,10 +29,10 @@ const DashboardLayout = () => {
                                 <h4 className="mx-2 mt-2 font-medium text-warning hover:underline">{user?.displayName}</h4>
                                 <p className="mx-2 mt-1 text-sm font-medium text-primary hover:underline">{user?.email}</p>
                             </div>
-                            <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+                            <ul className="menu p-4 w-80 bg-base-100 text-base-content gap-2">
                                 <li><a>My orders for Buyer only</a></li>
                                 <li><a>Wishlist for Buyer only</a></li>
-                                <li><a>Add a product for Seller only</a></li>
+                                <li><Link to={'/dashboard/buyer/addProduct'}>Add A Product</Link></li>
                                 <li><a>My Products for Seller only</a></li>
                                 <li><a>My Buyers for Seller only</a></li>
                                 <li><Link to={'/dashboard/admin/buyers'}>All Buyers for Admin only</Link></li>

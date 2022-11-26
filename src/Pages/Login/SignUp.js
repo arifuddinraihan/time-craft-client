@@ -37,7 +37,7 @@ const SignUp = () => {
             .then(res => res.json())
             .then(imageData => {
                 if (imageData.success) {
-                    console.log(imageData.data.url)
+                    // console.log(imageData.data.url)
                     const name = data?.name;
                     const email = data?.email;
                     const password = data?.password;
