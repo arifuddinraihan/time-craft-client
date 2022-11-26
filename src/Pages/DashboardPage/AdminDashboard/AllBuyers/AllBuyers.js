@@ -22,21 +22,22 @@ const AllBuyers = () => {
         }
     })
 
-    // const handleMakeAdmin = id => {
-    //     fetch(`https://doctors-portal-server-rust.vercel.app/users/admin/${id}`, {
-    //         method: 'PUT',
-    //         headers: {
-    //             authorization: `bearer ${localStorage.getItem('accessToken')}`
-    //         }
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             if (data.modifiedCount > 0) {
-    //                 toast.success('Make admin successful.')
-    //                 refetch();
-    //             }
-    //         })
-    // }
+    const handleMakeAdmin = id => {
+        fetch(`http://localhost:5000/users/admin/${id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('as12tc-token')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    toast.success('Make admin successful.')
+                    refetch();
+                }
+            })
+    }
 
     if (isLoading) {
         return <SpinnerPrimary></SpinnerPrimary>
@@ -82,7 +83,11 @@ const AllBuyers = () => {
                                             {user?.role}
                                         </td>
                                         <td>{user?.email}</td>
-                                        <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>Make Admin</button></td>
+                                        <td>{
+                                            user?.admin !== "yes" && <button onClick={() => handleMakeAdmin(user._id)}
+                                                className='btn btn-sm text-center btn-primary'>Make Admin</button>
+                                        }
+                                        </td>
                                         <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>< MdCancel></MdCancel></button></td>
                                     </tr>
                                 )

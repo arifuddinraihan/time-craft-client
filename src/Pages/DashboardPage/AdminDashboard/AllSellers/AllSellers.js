@@ -23,14 +23,15 @@ const AllSellers = () => {
     })
 
     // const handleMakeAdmin = id => {
-    //     fetch(`https://doctors-portal-server-rust.vercel.app/users/admin/${id}`, {
+    //     fetch(`http://localhost:5000/users/admin/${id}`, {
     //         method: 'PUT',
     //         headers: {
-    //             authorization: `bearer ${localStorage.getItem('accessToken')}`
+    //             authorization: `bearer ${localStorage.getItem('as12tc-token')}`
     //         }
     //     })
     //         .then(res => res.json())
     //         .then(data => {
+    //             console.log(data)
     //             if (data.modifiedCount > 0) {
     //                 toast.success('Make admin successful.')
     //                 refetch();

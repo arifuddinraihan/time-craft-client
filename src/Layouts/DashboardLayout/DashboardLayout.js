@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { UserContext } from '../../context/UserValidation';
+import useAdmin from '../../Hook/useAdmin';
 import Navbar from '../../Pages/Shared/Navbar/Navbar';
 
 const DashboardLayout = () => {
-    const {user} = useContext(UserContext)
-    
+    const { user } = useContext(UserContext)
+    const [isAdmin] = useAdmin(user?.email)
     const dashboardMenu = {
 
     }
@@ -24,8 +25,8 @@ const DashboardLayout = () => {
                         <label htmlFor="dashboard-panel-drawer" className="drawer-overlay"></label>
                         <div className="flex flex-col items-center pt-3 bg-base-100 w-80">
                             <div className='flex flex-col items-center my-4'>
-                                <img className="object-cover w-24 h-24 mx-2 rounded-full" 
-                                src={user?.photoURL} alt="avatar" />
+                                <img className="object-cover w-24 h-24 mx-2 rounded-full"
+                                    src={user?.photoURL} alt="avatar" />
                                 <h4 className="mx-2 mt-2 font-medium text-warning hover:underline">{user?.displayName}</h4>
                                 <p className="mx-2 mt-1 text-sm font-medium text-primary hover:underline">{user?.email}</p>
                             </div>
@@ -35,9 +36,13 @@ const DashboardLayout = () => {
                                 <li><Link to={'/dashboard/buyer/addProduct'}>Add A Product</Link></li>
                                 <li><Link to={'/dashboard/buyer/MyProducts/'}>My Products for Seller only</Link></li>
                                 <li><a>My Buyers for Seller only</a></li>
-                                <li><Link to={'/dashboard/admin/buyers'}>All Buyers for Admin only</Link></li>
-                                <li><Link to={'/dashboard/admin/sellers'}>All Sellers for Admin only</Link></li>
-                                <li><a>Reported Items for Admin only</a></li>
+                                {
+                                    isAdmin && <>
+                                        <li><Link to={'/dashboard/admin/buyers'}>Buyers List</Link></li>
+                                        <li><Link to={'/dashboard/admin/sellers'}>Sellers List</Link></li>
+                                        <li><a>Reported Items for Admin only</a></li>
+                                    </>
+                                }
                             </ul>
                         </div>
                     </div>
