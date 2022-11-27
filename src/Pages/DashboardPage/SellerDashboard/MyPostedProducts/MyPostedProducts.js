@@ -36,7 +36,7 @@ const MyPostedProducts = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if(data.acknowledged){
+                if (data.acknowledged) {
                     toast.success("Product added in advertisement")
                     refetch()
                 }
