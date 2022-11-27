@@ -176,7 +176,7 @@ const AddAProduct = () => {
                         <div className='my-2'>
                             <label>Product details*</label>
                             <input type="textarea" {...register("productDetails")}
-                                className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200 mt-2"
+                                className="textarea textarea-warning focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200 mt-2"
                                 placeholder='Description of the product'
                             />
                             {errors.productDetails && <p className='text-error my-2'>{errors.productDetails.message}</p>}
