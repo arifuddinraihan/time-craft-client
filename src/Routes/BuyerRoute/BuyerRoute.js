@@ -2,18 +2,19 @@ import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import SpinnerPrimary from '../../components/Spinner/SpinnerPrimary';
 import { UserContext } from '../../context/UserValidation';
-import useSeller from '../../Hook/useSeller';
+import useBuyer from '../../Hook/useBuyer';
+
 
 const BuyerRoute = ({ children }) => {
     const { user, loading } = useContext(UserContext);
-    const [isSeller, isSellerLoading] = useSeller(user?.email)
+    const [isBuyer, isBuyerLoading] = useBuyer(user?.email)
     // console.log(isAdmin)
     const location = useLocation()
-    if (loading || isSellerLoading) {
+    if (loading || isBuyerLoading) {
         // console.log('from loading state')
         return <SpinnerPrimary></SpinnerPrimary>;
     }
-    if (user && isSeller) {
+    if (user && isBuyer) {
         // console.log('from user and admin true state')
         return children;
     }

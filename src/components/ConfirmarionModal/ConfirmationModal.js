@@ -2,6 +2,7 @@ import React from 'react';
 import useTitle from '../../Hook/useTitle';
 
 const ConfirmationModal = ({ title, message, successButtonName, closeModal, modalData, successAction }) => {
+    
     useTitle("Confirmation")
     return (
         

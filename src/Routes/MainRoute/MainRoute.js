@@ -78,7 +78,7 @@ const mainRoute = createBrowserRouter([
                 element: <SellerRoute><MyPostedProducts></MyPostedProducts></SellerRoute>
             },
             {
-                path: '/dashboard/seller/MyProducts',
+                path: '/dashboard/buyer/MyORders',
                 element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>
             },
         ]

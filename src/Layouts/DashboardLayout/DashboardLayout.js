@@ -12,7 +12,7 @@ const DashboardLayout = () => {
     const [isSeller] = useSeller(user?.email)
     const [isBuyer] = useBuyer(user?.email)
     const dashboardMenu = {
-
+        
     }
 
     return (
@@ -37,7 +37,7 @@ const DashboardLayout = () => {
                             <ul className="menu p-4 w-80 text-base-content gap-2">
                                 {
                                     isBuyer && <>
-                                        <li><a>My orders for Buyer only</a></li>
+                                        <li><Link to={'/dashboard/buyer/MyORders'}>My orders</Link></li>
                                         <li><a>Wishlist for Buyer only</a></li>
                                     </>
                                 }

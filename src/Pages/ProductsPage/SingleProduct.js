@@ -68,7 +68,7 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
                         {
                             alreadyBooked ?
                                 <>
-                                    <Link to={`/dashboard/seller/MyProducts?email=${user?.email}`}
+                                    <Link to={'/dashboard/buyer/MyORders'}
                                     className='btn btn-active btn-success btn-block my-2'>
                                         Already Booked
                                     </Link>
