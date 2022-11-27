@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form';
 import { UserContext } from '../../../../context/UserValidation';
 import moment from 'moment/moment';
 import toast from 'react-hot-toast';
+import useTitle from '../../../../Hook/useTitle';
 
 const AddAProduct = () => {
+    useTitle("Add your product")
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { user } = useContext(UserContext)
     const imageHostKey = process.env.REACT_APP_imgbb_key;

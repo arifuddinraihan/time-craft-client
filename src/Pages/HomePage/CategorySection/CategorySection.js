@@ -1,7 +1,26 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import SpinnerPrimary from '../../../components/Spinner/SpinnerPrimary';
+import CategoryCard from './CategoryCard';
 
-const CategorySection = ({ categoryData }) => {
+const CategorySection = () => {
+    const url = 'http://localhost:5000/productsCategory'
+    const { data: categoryArray = [], isLoading } = useQuery({
+        queryKey: ['productsCategory'],
+        queryFn: async () => {
+            const res = await fetch(url, {
+                headers: {
+                    "content-type" : "application/json"
+                }
+            });
+            const data = await res.json();
+            return data;
+        }
+    })
+
+    if(isLoading){
+        return <SpinnerPrimary></SpinnerPrimary>
+    }
 
     return (
         <div className='flex flex-col text-center justify-center mx-2 md:mx-0'>
@@ -9,28 +28,8 @@ const CategorySection = ({ categoryData }) => {
                 Your desire category!</h2>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
                 {
-                    categoryData.map(category =>
-                        < >
-                            <div className="flex flex-col items-center justify-center w-full max-w-sm mx-auto" key={category._id}>
-                                <div className="w-full h-64 bg-yellow-200 bg-center bg-cover rounded-lg shadow-md"
-                                    style={{
-                                        backgroundImage:
-                                            `url(${category.imageURL})`,
-                                    }}>
-
-                                </div>
-
-                                <div className="w-56 -mt-10 overflow-hidden bg-yellow-200 rounded-lg shadow-lg md:w-64">
-                                <h3 className="py-2 font-bold tracking-wide text-center text-gray-800 uppercase">{category?.categoryName}</h3>
-
-                                    <div className="flex items-center justify-center px-3 py-2 bg-yellow-100">
-                                        <Link to={`/category/products/${category?.categoryName}`}>
-                                        <button className="btn btn-sm text-xs font-semibold text-warning uppercase transition-colors duration-300 transform bg-base-100 rounded">See All Products</button>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-                        </>
+                    categoryArray.map(category =>
+                        <CategoryCard key={category._id} category={category}></CategoryCard>
                     )
                 }
             </div>

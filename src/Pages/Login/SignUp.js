@@ -3,26 +3,18 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserValidation';
+import useTitle from '../../Hook/useTitle';
 import useToken from '../../Hook/useToken';
 
 const SignUp = () => {
+    useTitle("Sign up")
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createNewUser, updateUser, setLoader } = useContext(UserContext);
-    const [authError, setAuthError] = useState("");
-    
-    // Token used here to call the JWT
-    const [createdUserEmail, setCreatedUserEmail] = useState("");
+    const [authError, setAuthError] = useState('');
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail);
-
-    // navigate for after sign up user will be route into home
     const navigate = useNavigate();
     const imageHostKey = process.env.REACT_APP_imgbb_key;
-    // console.log(imageHostKey)
-
-    // If token found from useToken hook then user will be navigate to home page
-    if (token) {
-        navigate('/');
-    }
     
     const handleRegister = data => {
         // console.log(data)
@@ -41,11 +33,13 @@ const SignUp = () => {
                     const name = data?.name;
                     const email = data?.email;
                     const password = data?.password;
-                    const imageURL = imageData.data.url;
+                    const imageURL = imageData?.data?.url;
                     const role = data?.role;
                     createNewUser(email, password)
                         .then(result => {
-                            const displayName = data.name;
+                            const user = result?.user;
+                            console.log(user)
+                            const displayName = data?.name;
                             const photoURL = imageURL;
                             const userInfo = {
                                 displayName,
@@ -59,8 +53,6 @@ const SignUp = () => {
                                     reset()
                                 })
                                 .catch(err => console.error(err))
-                            const user = result?.user;
-                            console.log(user)
                         })
                         .catch(err => {
                             console.error(err);
@@ -74,7 +66,7 @@ const SignUp = () => {
 
     const saveUserData = (userData) => {
         fetch('http://localhost:5000/users', {
-            method: "POST",
+            method: 'POST',
             headers: {
                 "content-type": "application/json"
             },
@@ -91,6 +83,9 @@ const SignUp = () => {
             .catch(error => console.error(error))
     }
 
+    if (token) {
+        navigate('/');
+    }
 
     return (
         <div className='container mx-auto'>
@@ -118,8 +113,8 @@ const SignUp = () => {
                                 className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200 mt-2"
                                 required
                             >
-                                <option selected value="Buyer">Buyer</option>
-                                <option value="Seller">Seller</option>
+                                <option selected value={'Buyer'}>Buyer</option>
+                                <option value={'Seller'}>Seller</option>
                             </select>
                         </div>
                         <div className='my-6'>

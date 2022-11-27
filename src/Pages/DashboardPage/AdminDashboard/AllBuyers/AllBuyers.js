@@ -5,9 +5,11 @@ import { UserContext } from '../../../../context/UserValidation';
 import toast from 'react-hot-toast';
 import { MdCancel } from "react-icons/md";
 import ConfirmationModal from '../../../../components/ConfirmarionModal/ConfirmationModal';
+import useTitle from '../../../../Hook/useTitle';
 
 
 const AllBuyers = () => {
+    useTitle("All Buyer List")
     const [deletingBuyer, setDeletingBuyer] = useState(null);
 
     const closeModal = () => {

@@ -1,40 +1,34 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import SpinnerPrimary from '../../components/Spinner/SpinnerPrimary';
 import { UserContext } from '../../context/UserValidation';
+import useTitle from '../../Hook/useTitle';
 import BookModal from './BookModal/BookModal';
 import SingleProduct from './SingleProduct';
 
 const ProductsPage = () => {
+    useTitle("Products Page")
     const products = useLoaderData();
-    const { user } = useContext(UserContext);
     // console.log(products)
-    const [bookingProduct, setBookingProduct] = useState(null);
-
-    const closeModal = () => {
-        setBookingProduct(null);
-    }
-    const handleBookingModal = product => {
-        setBookingProduct(product)
-    }
-
-    const submitBookingData = data => {
-        const bookedProduct = {
-            clientName: user?.displayName,
-            clientEmail: user?.email,
-            clientContact: data?.customerContact,
-            clientLocation: data?.customerLocation,
-            sellerName,
-            sellerEmail,
-            productCategory: category,
-            product_Id: _id,
-            productName: productName,
-            productLocation,
-            productImgURL: productImgURL,
-            productPrice: resalePrice,
-            sold: "no",
-            status: "booked",
+    const url = `http://localhost:5000/productsPerCategory?name=${products?.categoryName}`;
+    const { data: productsArray = [], refetch, isLoading } = useQuery({
+        queryKey: ['categoryProduct', products?.categoryName],
+        queryFn: async () => {
+            const res = await fetch(url, {
+                headers: {
+                    "content-type": "application/json"
+                }
+            });
+            const data = await res.json();
+            return data;
         }
-        console.log("from submit booking data")
+    })
+    const [bookingProduct, setBookingProduct] = useState(null);
+    const { user } = useContext(UserContext);
+
+    if (isLoading) {
+        return <SpinnerPrimary></SpinnerPrimary>
     }
 
     return (
@@ -44,11 +38,12 @@ const ProductsPage = () => {
                     Select your desire product</h2>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center mx-3'>
                     {
-                        products.map(product =>
+                        productsArray.map(product =>
                             <SingleProduct
                                 key={product._id}
+                                setBookingProduct={setBookingProduct}
+                                user={user}
                                 product={product}
-                                handleBookingModal={handleBookingModal}
                             ></SingleProduct>)
                     }
                 </div>
@@ -56,8 +51,10 @@ const ProductsPage = () => {
             {
                 bookingProduct && <BookModal
                     modalData={bookingProduct}
-                    closeModal={closeModal}
-                    submitBookingData={submitBookingData}
+                    isLoading={isLoading}
+                    refetch={refetch}
+                    user={user}
+                    setBookingProduct={setBookingProduct}
                 ></BookModal>
             }
         </div>

@@ -6,8 +6,10 @@ import { FaGoogle } from "react-icons/fa";
 import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from 'firebase/auth';
 import useToken from '../../Hook/useToken';
+import useTitle from '../../Hook/useTitle';
 
 const Login = () => {
+    useTitle("Login Page")
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const { signIn, loginProvider, setLoader, forgetPassLinkToEmail } = useContext(UserContext)
     const [loginError, setLoginError] = useState('');
@@ -24,15 +26,10 @@ const Login = () => {
 
     const from = location.state?.from?.pathname || '/';
 
-    if (token) {
-        navigate(from, { replace: true })
-    }
-
-
     // Google Login Handle
     const googleLoginProvider = new GoogleAuthProvider();
     const googleHandle = event => {
-        // event.preventDefault();
+        event.preventDefault();
         loginProvider(googleLoginProvider)
             .then(res => {
                 setLoader(false)
@@ -55,12 +52,13 @@ const Login = () => {
 
     // Registered User login handle
     const handleLogin = data => {
-        setLoginError('')
+        // setLoginError('')
         signIn(data.email, data.password)
             .then(result => {
-                // reset();
+                const user = result.user
+                setLoginUserEmail(user?.email)
+                reset();
                 toast.success('Successfully Logged in!')
-                setLoginUserEmail(data.email)
             })
             .catch(error => {
                 toast.error(`${error.message}`)
@@ -110,6 +108,10 @@ const Login = () => {
             .catch(error => console.error(error))
     }
 
+    if (token) {
+        navigate(from, { replace: true })
+    }
+
     return (
         <div className='container mx-auto'>
             <div className="w-full max-h-auto d-block min-h-screen p-4 flex items-center justify-center" >
@@ -123,7 +125,6 @@ const Login = () => {
                                 <span className="label-text">Email</span>
                             </label>
                             <input type="text" {...register("email", { required: "Your email is required." })}
-                                onBlur={handleEmailBlur}
                                 className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200" placeholder="info@timecraft.com" />
                             {errors.email && <p className='text-error my-2'>{errors.email.message}</p>}
                         </div>
@@ -140,7 +141,7 @@ const Login = () => {
                                 className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200"
                                 placeholder="********" />
                             <label className="label">
-                                <Link onClick={passwordReset}
+                                <Link 
                                     className="label-text text-xs hover:underline hover:underline-offset-1">Forgot Password</Link>
                             </label>
                             {errors.password && <p className='text-error my-2'>{errors.password.message}</p>}

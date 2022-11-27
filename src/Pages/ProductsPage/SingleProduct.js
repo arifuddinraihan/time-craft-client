@@ -5,9 +5,31 @@ import { MdOutlineAvTimer, MdOutlineVerified } from "react-icons/md";
 import { FaUserTag } from "react-icons/fa";
 import { TfiLocationPin } from "react-icons/tfi";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
+import { useQuery } from '@tanstack/react-query';
+import SpinnerPrimary from '../../components/Spinner/SpinnerPrimary';
+import { Link } from 'react-router-dom';
 
-const SingleProduct = ({ product, handleBookingModal }) => {
+const SingleProduct = ({ product, user, setBookingProduct }) => {
     const { _id, productImgURL, category, productName, productLocation, resalePrice, originalPrice, productUsedFor, productPostTime, sellerName } = product;
+
+    const url = `http://localhost:5000/bookedProducts?email=${user?.email}`;
+    const { data: bookedProductArray = [], isLoading } = useQuery({
+        queryKey: ['bookedProducts', user?.email],
+        queryFn: async () => {
+            const res = await fetch(url, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('as12tc-token')}`
+                }
+            });
+            const data = await res.json();
+            return data;
+        }
+    })
+
+    if (isLoading) {
+        return <SpinnerPrimary></SpinnerPrimary>
+    }
+    const alreadyBooked = bookedProductArray.find(product => product.product_Id === _id)
     return (
         <div>
             <div className="w-full max-w-sm overflow-hidden bg-amber-50 rounded-lg shadow-lg">
@@ -43,11 +65,21 @@ const SingleProduct = ({ product, handleBookingModal }) => {
 
                     <div className="flex flex-col items-center mt-4 text-gray-700">
                         <p className="px-2 text-sm">Posted on {productPostTime}</p>
-                        <label onClick={() => handleBookingModal(product)}
-                            htmlFor="product-book-modal"
-                            className='btn btn-outline btn-success btn-block my-2'>
-                            <span className='text-slate-800 font-bold flex gap-2'>Book Now <BsFillBookmarkStarFill></BsFillBookmarkStarFill></span>
-                        </label>
+                        {
+                            alreadyBooked ?
+                                <>
+                                    <Link to={`/dashboard/seller/MyProducts?email=${user?.email}`}
+                                    className='btn btn-active btn-success btn-block my-2'>
+                                        Already Booked
+                                    </Link>
+                                </>
+                                :
+                                <label onClick={() => setBookingProduct(product)}
+                                    htmlFor="product-book-modal"
+                                    className='btn btn-outline btn-success btn-block my-2'>
+                                    <span className='text-slate-800 font-bold flex gap-2'>Book Now <BsFillBookmarkStarFill></BsFillBookmarkStarFill></span>
+                                </label>
+                        }
                     </div>
                 </div>
             </div>
