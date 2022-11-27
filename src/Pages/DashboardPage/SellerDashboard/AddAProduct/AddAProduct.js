@@ -55,7 +55,8 @@ const AddAProduct = () => {
                         productCondition,
                         sellerContact,
                         productDetails,
-                        status: "available"
+                        status: "available",
+                        paid : false
                     }
                     fetch('http://localhost:5000/allProducts', {
                         method: "POST",
