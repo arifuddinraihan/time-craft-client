@@ -1,6 +1,7 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../../context/UserValidation';
 
 const CheckoutForm = ({ booking }) => {
@@ -124,6 +125,9 @@ const CheckoutForm = ({ booking }) => {
                 success && <div>
                     <p className='text-green-500'>{success}</p>
                     <p>Your transactionId: <span className='font-bold'>{transactionId}</span></p>
+                    <Link to={'/dashboard/buyer/MyORders'} className="text-lg my-3 text-green-400 hover:underline hover:underline-offset-1">
+                        Press here for more purchase.
+                    </Link>
                 </div>
             }
         </form>

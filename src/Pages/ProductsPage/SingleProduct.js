@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const SingleProduct = ({ product, user, setBookingProduct }) => {
-    const { _id, productImgURL, category, productName, productLocation, resalePrice, originalPrice, productUsedFor, productPostTime, sellerName, sellerEmail } = product;
+    const { _id, productImgURL, category, productName, productLocation, resalePrice, originalPrice, productUsedFor, productPostTime, sellerName, sellerEmail, paid } = product;
 
     const url = `http://localhost:5000/bookedProducts?email=${user?.email}`;
     const { data: bookedProductArray = [], isLoading } = useQuery({
@@ -50,7 +50,7 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
         })
             .then(res => res.json())
             .then(data => {
-                if(data.acknowledged){
+                if (data.acknowledged) {
                     toast.success("You Report has been received")
                 }
             })
@@ -116,8 +116,14 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
                                 </label>
                         }
                     </div>
-                    <button onClick={() => handleReportProduct(_id)}
-                        className='btn btn-outline btn-error btn-block my-2'>Report Item</button>
+                    {
+                        paid ?
+                        <button
+                            className='btn btn-outline btn-disabled btn-secondary btn-block my-2'>Item Sold</button>
+                            :
+                        <button onClick={() => handleReportProduct(_id)}
+                            className='btn btn-outline btn-error btn-block my-2'>Report Item</button>
+                    }
                 </div>
             </div>
         </div>

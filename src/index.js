@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import UserValidation from './context/UserValidation';
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import "react-image-gallery/styles/css/image-gallery.css";
 
 // Client created for react query
 const queryClient = new QueryClient()

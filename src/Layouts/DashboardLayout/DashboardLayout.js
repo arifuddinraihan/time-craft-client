@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import { UserContext } from '../../context/UserValidation';
 import useAdmin from '../../Hook/useAdmin';
 import useBuyer from '../../Hook/useBuyer';
@@ -11,9 +11,26 @@ const DashboardLayout = () => {
     const [isAdmin] = useAdmin(user?.email)
     const [isSeller] = useSeller(user?.email)
     const [isBuyer] = useBuyer(user?.email)
-    const dashboardMenu = {
-
-    }
+    const dashboardMenu = <>
+        {
+            isBuyer && <>
+                <li><NavLink className={({ isActive }) => isActive ? "btn btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-sm md:btn-md"} to={'/dashboard/buyer/MyORders'}>My orders</NavLink></li>
+            </>
+        }
+        {
+            isSeller && <>
+                <li><NavLink className={({ isActive }) => isActive ? "btn btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-sm md:btn-md"} to={'/dashboard/seller/addProduct'}>Add A Product</NavLink></li>
+                <li><NavLink className={({ isActive }) => isActive ? "btn btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-sm md:btn-md"} to={'/dashboard/seller/MyProducts'}>My Products</NavLink></li>
+            </>
+        }
+        {
+            isAdmin && <>
+                <li><NavLink className={({ isActive }) => isActive ? "btn btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-sm md:btn-md"} to={'/dashboard/admin/buyers'}>Buyers List</NavLink></li>
+                <li><NavLink className={({ isActive }) => isActive ? "btn btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-sm md:btn-md"} to={'/dashboard/admin/sellers'}>Sellers List</NavLink></li>
+                <li><NavLink className={({ isActive }) => isActive ? "btn btn-sm md:btn-md btn-outline" : "btn btn-ghost btn-sm md:btn-md"} to={'/dashboard/admin/reportedItems'}>Reported Items</NavLink></li>
+            </>
+        }
+    </>
 
     return (
         <div className='bg-base-100'>
@@ -35,24 +52,7 @@ const DashboardLayout = () => {
                                 <p className="mx-2 mt-1 text-sm font-medium text-primary hover:underline">{user?.email}</p>
                             </div>
                             <ul className="menu p-4 w-80 text-base-content gap-2">
-                                {
-                                    isBuyer && <>
-                                        <li><Link to={'/dashboard/buyer/MyORders'}>My orders</Link></li>
-                                    </>
-                                }
-                                {
-                                    isSeller && <>
-                                        <li><Link to={'/dashboard/seller/addProduct'}>Add A Product</Link></li>
-                                        <li><Link to={'/dashboard/seller/MyProducts'}>My Products</Link></li>
-                                    </>
-                                }
-                                {
-                                    isAdmin && <>
-                                        <li><Link to={'/dashboard/admin/buyers'}>Buyers List</Link></li>
-                                        <li><Link to={'/dashboard/admin/sellers'}>Sellers List</Link></li>
-                                        <li><Link to={'/dashboard/admin/reportedItems'}>Reported Items</Link></li>
-                                    </>
-                                }
+                                {dashboardMenu}
                             </ul>
                         </div>
                     </div>

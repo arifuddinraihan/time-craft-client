@@ -27,20 +27,22 @@ const MyPostedProducts = () => {
             return data;
         }
     })
-    // const bookedProductUrl = `http://localhost:5000/bookedProducts`;
-    // const { data: bookedProductArray = [] } = useQuery({
-    //     queryKey: ['bookedProducts'],
-    //     queryFn: async () => {
-    //         const res = await fetch(bookedProductUrl, {
-    //             headers: {
-    //                 authorization: `Bearer ${localStorage.getItem('as12tc-token')}`
-    //             }
-    //         });
-    //         const data = await res.json();
-    //         return data;
-    //     }
-    // })
-    // const bookedProduct = bookedProductArray.find(product => product.status === )
+    const handleAdvertiseProduct = id => {
+        fetch(`http://localhost:5000/advertisedProducts/${id}`, {
+            method: "PUT",
+            headers: {
+                authorization: `bearer ${localStorage.getItem('as12tc-token')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if(data.acknowledged){
+                    toast.success("Product added in advertisement")
+                    refetch()
+                }
+            })
+            .catch(err => console.log(err))
+    }
     const handleDeleteProduct = modalData => {
         console.log(modalData?._id)
         fetch(`http://localhost:5000/allProducts/${modalData?._id}`, {
@@ -111,7 +113,10 @@ const MyPostedProducts = () => {
                                         </td>
                                         <td>
                                             {
-                                                product?.status !== "booked" && <button className='btn btn-sm text-center btn-primary'>Advertise</button>
+                                                product?.status === "available"
+                                                && !product?.advertised &&
+                                                <button onClick={() => handleAdvertiseProduct(product._id)}
+                                                    className='btn btn-sm text-center btn-primary'>Advertise</button>
                                             }
                                         </td>
                                         <td>
