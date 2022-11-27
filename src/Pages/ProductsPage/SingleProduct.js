@@ -8,6 +8,7 @@ import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { useQuery } from '@tanstack/react-query';
 import SpinnerPrimary from '../../components/Spinner/SpinnerPrimary';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const SingleProduct = ({ product, user, setBookingProduct }) => {
     const { _id, productImgURL, category, productName, productLocation, resalePrice, originalPrice, productUsedFor, productPostTime, sellerName, sellerEmail } = product;
@@ -27,7 +28,7 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
     })
     const userUrl = `http://localhost:5000/users/sellers?email=${user?.email}`;
     const { data: verifiedSellerArray = [] } = useQuery({
-        queryKey: ['sellers' , user?.email],
+        queryKey: ['sellers', user?.email],
         queryFn: async () => {
             const res = await fetch(userUrl, {
                 headers: {
@@ -35,10 +36,27 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
                 }
             });
             const data = await res.json();
-            console.log(data)
+            // console.log(data)
             return data;
         }
     })
+
+    const handleReportProduct = id => {
+        fetch(`http://localhost:5000/allProducts/${id}`, {
+            method: "PUT",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('as12tc-token')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if(data.acknowledged){
+                    toast.success("You Report has been received")
+                }
+            })
+            .catch(err => console.log(err))
+
+    }
 
     if (isLoading) {
         return <SpinnerPrimary></SpinnerPrimary>
@@ -98,6 +116,8 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
                                 </label>
                         }
                     </div>
+                    <button onClick={() => handleReportProduct(_id)}
+                        className='btn btn-outline btn-error btn-block my-2'>Report Item</button>
                 </div>
             </div>
         </div>
