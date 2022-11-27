@@ -24,17 +24,18 @@ const AdSection = () => {
     const AutoplaySlider = withAutoplay(AwesomeSlider);
     return (
         <div className='flex flex-col text-center justify-center mx-2 md:mx-0'>
-            <h2 className='text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-warning to-primary py-6'>
+            <h2 className='text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-warning to-primary py-6 my-6 md:my-14'>
                 Product you may like</h2>
             <div>
                 <AutoplaySlider
-                    className="w-60"
+                    className="h-96"
                     play={true}
                     cancelOnInteraction={false} // should stop playing on user interaction
                     interval={6000}
+
                 >
                     {
-                        advertiseArray.map(add => <div data-src={add.productImgURL} />)
+                        advertiseArray.map(add => <div data-src={add.productImgURL}/>)
                     }
                 </AutoplaySlider>
             </div>

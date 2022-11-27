@@ -30,27 +30,27 @@ const Footer = () => {
         <footer className="bg-base-200">
             <div className='container mx-auto footer p-10 text-base-content"'>
                 <div>
-                    <span className="footer-title">Services</span>
-                    <a className="link link-hover">Branding</a>
-                    <a className="link link-hover">Design</a>
-                    <a className="link link-hover">Marketing</a>
-                    <a className="link link-hover">Advertisement</a>
+                    <span className="footer-title">Technology</span>
+                    <a className="link link-hover">React.js</a>
+                    <a className="link link-hover">MongoDB</a>
+                    <a className="link link-hover">Express.js</a>
+                    <a className="link link-hover">Node.js</a>
                 </div>
                 <div>
-                    <span className="footer-title">Company</span>
-                    <a className="link link-hover">About us</a>
-                    <a className="link link-hover">Contact</a>
-                    <a className="link link-hover">Jobs</a>
-                    <a className="link link-hover">Press kit</a>
+                    <span className="footer-title">Sources</span>
+                    <a className="link link-hover">TailwindCSS</a>
+                    <a className="link link-hover">DaisyUI</a>
+                    <a className="link link-hover">Merakiui</a>
+                    <a className="link link-hover">Stripe.js</a>
                 </div>
                 <div>
-                    <span className="footer-title">Legal</span>
-                    <a className="link link-hover">Terms of use</a>
-                    <a className="link link-hover">Privacy policy</a>
-                    <a className="link link-hover">Cookie policy</a>
+                    <span className="footer-title">Pages</span>
+                    <a className="link link-hover">Home</a>
+                    <a className="link link-hover">Dashboard</a>
+                    <a className="link link-hover">Blog</a>
                 </div>
                 <div>
-                    <span className="footer-title">Newsletter</span>
+                    <span className="footer-title">Subscribe for Newsletter</span>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Enter your email address</span>
