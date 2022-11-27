@@ -38,7 +38,7 @@ const SignUp = () => {
                     createNewUser(email, password)
                         .then(result => {
                             const user = result?.user;
-                            console.log(user)
+                            // console.log(user)
                             const displayName = data?.name;
                             const photoURL = imageURL;
                             const userInfo = {
@@ -74,7 +74,7 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 if (data.acknowledged) {
                     toast.success("Account created successfully!");
                     setCreatedUserEmail(userData?.email)

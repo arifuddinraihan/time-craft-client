@@ -44,7 +44,7 @@ const MyPostedProducts = () => {
             .catch(err => console.log(err))
     }
     const handleDeleteProduct = modalData => {
-        console.log(modalData?._id)
+        // console.log(modalData?._id)
         fetch(`http://localhost:5000/allProducts/${modalData?._id}`, {
             method: "DELETE",
             headers: {
