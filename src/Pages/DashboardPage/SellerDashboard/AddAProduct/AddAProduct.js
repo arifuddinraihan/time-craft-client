@@ -4,11 +4,14 @@ import { UserContext } from '../../../../context/UserValidation';
 import moment from 'moment/moment';
 import toast from 'react-hot-toast';
 import useTitle from '../../../../Hook/useTitle';
+import { useNavigate } from 'react-router-dom';
 
 const AddAProduct = () => {
     useTitle("Add your product")
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const { user } = useContext(UserContext)
+    const { user } = useContext(UserContext);
+    const navigate = useNavigate();
+    const myProductRoute = '/dashboard/seller/MyProducts'
     const imageHostKey = process.env.REACT_APP_imgbb_key;
     // moment.js current time
     const currentTime = moment().format('MMMM Do YYYY, h:mm:ss a')
@@ -52,7 +55,7 @@ const AddAProduct = () => {
                         productCondition,
                         sellerContact,
                         productDetails,
-                        status : "available"
+                        status: "available"
                     }
                     fetch('http://localhost:5000/allProducts', {
                         method: "POST",
@@ -66,6 +69,7 @@ const AddAProduct = () => {
                             console.log(data)
                             reset()
                             toast.success('Product posted Successfully')
+                            navigate(myProductRoute)
                         })
                         .catch(err => console.log(err))
                 }
@@ -163,9 +167,8 @@ const AddAProduct = () => {
                             </div>
                             <div className='my-2'>
                                 <label>Year of purchase</label>
-                                <input type="number" {...register("purchaseYear" ,{required : "Purchase Year is required"})}
+                                <input type="number" {...register("purchaseYear", { required: "Purchase Year is required" })}
                                     className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200 mt-2"
-                                    placeholder='2020'
                                 />
                                 {errors.purchaseYear && <p className='text-error my-2'>{errors.purchaseYear.message}</p>}
                             </div>

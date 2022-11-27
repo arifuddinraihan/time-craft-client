@@ -107,7 +107,7 @@ const AllSellers = () => {
                                         <td>
                                             {
                                                 user?.verifySeller !== "yes" ? <button onClick={() => handleVerifySeller(user._id)}
-                                                    className='btn btn-sm text-center btn-ghost text-amber-500'>Verify Seller</button>
+                                                    className='btn btn-sm text-center btn-primary'>Verify Seller</button>
                                                     :
                                                     <button className='btn btn-sm text-center btn-ghost text-amber-500'><MdVerifiedUser></MdVerifiedUser></button>
                                             }

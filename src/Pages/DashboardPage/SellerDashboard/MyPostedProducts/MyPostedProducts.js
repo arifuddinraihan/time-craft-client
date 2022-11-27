@@ -1,11 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import SpinnerPrimary from '../../../../components/Spinner/SpinnerPrimary';
 import { UserContext } from '../../../../context/UserValidation';
 import { MdCancel } from "react-icons/md";
+import toast from 'react-hot-toast';
+import ConfirmationModal from '../../../../components/ConfirmarionModal/ConfirmationModal';
 
 
 const MyPostedProducts = () => {
+    const [deletingPostedProduct, setDeletingPostedProduct] = useState(null);
+
+    const closeModal = () => {
+        setDeletingPostedProduct(null);
+    }
     const { user } = useContext(UserContext)
     const url = `http://localhost:5000/allProducts/seller?email=${user?.email}`;
     const { data: productArray = [], refetch, isLoading } = useQuery({
@@ -20,6 +27,23 @@ const MyPostedProducts = () => {
             return data;
         }
     })
+
+    const handleDeleteProduct = modalData => {
+        console.log(modalData?._id)
+        fetch(`http://localhost:5000/allProducts/${modalData?._id}`, {
+            method: "DELETE",
+            headers: {
+                authorization: `bearer ${localStorage.getItem('as12tc-token')}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success(`${modalData?.productName} deleted successfully`)
+                }
+            })
+    }
 
     if (isLoading) {
         return <SpinnerPrimary></SpinnerPrimary>
@@ -38,9 +62,9 @@ const MyPostedProducts = () => {
                             <tr>
                                 <th>Serial</th>
                                 <th>Product Details</th>
-                                <th>Product Used</th>
                                 <th>Resale Price</th>
-                                <th>Edit</th>
+                                <th>Status</th>
+                                <th>Advertise</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
@@ -61,21 +85,21 @@ const MyPostedProducts = () => {
                                                 <div>
                                                     <div className="font-bold">{product?.productName}</div>
                                                     <div className="text-sm opacity-50">{product?.category}</div>
+                                                    <div className="text-sm opacity-50">{product?.productUsedFor} years Old</div>
                                                     <div className="text-sm opacity-50">from: {product?.productLocation}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <div>
-                                                <div className="font-bold">{product?.productUsedFor} years</div>
-                                                <div className="text-sm opacity-50">posted: {product?.productPostTime}</div>
-                                            </div>
-                                        </td>
-                                        <td>
                                             <div className="font-bold">${product?.resalePrice}</div>
                                         </td>
-                                        <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>Make Admin</button></td>
-                                        <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>< MdCancel></MdCancel></button></td>
+                                        <td>
+                                            <div className="font-bold">{product?.status}</div>
+                                        </td>
+                                        <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>Advertise</button></td>
+                                        <td>
+                                            <label onClick={() => setDeletingPostedProduct(product)} htmlFor="confirmation-modal" className="btn">< MdCancel></MdCancel></label>
+                                        </td>
                                     </tr>
                                 )
                             }
@@ -83,6 +107,17 @@ const MyPostedProducts = () => {
                     </table>
                 </div>
             </div>
+            {
+                deletingPostedProduct && <ConfirmationModal
+                    title={`Are you sure you want to remove?`}
+                    message={`If you delete ${deletingPostedProduct?.productName}. It cannot be undone.`}
+                    successAction={handleDeleteProduct}
+                    successButtonName="remove"
+                    modalData={deletingPostedProduct}
+                    closeModal={closeModal}
+
+                ></ConfirmationModal>
+            }
         </div>
     );
 };

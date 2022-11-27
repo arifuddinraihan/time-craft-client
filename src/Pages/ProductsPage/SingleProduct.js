@@ -10,7 +10,7 @@ import SpinnerPrimary from '../../components/Spinner/SpinnerPrimary';
 import { Link } from 'react-router-dom';
 
 const SingleProduct = ({ product, user, setBookingProduct }) => {
-    const { _id, productImgURL, category, productName, productLocation, resalePrice, originalPrice, productUsedFor, productPostTime, sellerName } = product;
+    const { _id, productImgURL, category, productName, productLocation, resalePrice, originalPrice, productUsedFor, productPostTime, sellerName, sellerEmail } = product;
 
     const url = `http://localhost:5000/bookedProducts?email=${user?.email}`;
     const { data: bookedProductArray = [], isLoading } = useQuery({
@@ -25,11 +25,26 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
             return data;
         }
     })
+    const userUrl = `http://localhost:5000/users/sellers?email=${user?.email}`;
+    const { data: verifiedSellerArray = [] } = useQuery({
+        queryKey: ['sellers' , user?.email],
+        queryFn: async () => {
+            const res = await fetch(userUrl, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('as12tc-token')}`
+                }
+            });
+            const data = await res.json();
+            console.log(data)
+            return data;
+        }
+    })
 
     if (isLoading) {
         return <SpinnerPrimary></SpinnerPrimary>
     }
     const alreadyBooked = bookedProductArray.find(product => product.product_Id === _id)
+    const verifiedSeller = verifiedSellerArray.find(user => user.email === sellerEmail)
     return (
         <div>
             <div className="w-full max-w-sm overflow-hidden bg-amber-50 rounded-lg shadow-lg">
@@ -59,7 +74,9 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
                         <FaUserTag className='text-lg'></FaUserTag>
                         <div className='flex'>
                             <p className="px-2 text-sm">{sellerName}</p>
-                            <MdOutlineVerified></MdOutlineVerified>
+                            {
+                                verifiedSeller && <MdOutlineVerified></MdOutlineVerified>
+                            }
                         </div>
                     </div>
 
@@ -69,7 +86,7 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
                             alreadyBooked ?
                                 <>
                                     <Link to={'/dashboard/buyer/MyORders'}
-                                    className='btn btn-active btn-success btn-block my-2'>
+                                        className='btn btn-active btn-success btn-block my-2'>
                                         Already Booked
                                     </Link>
                                 </>
