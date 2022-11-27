@@ -17,7 +17,7 @@ const AdSection = () => {
             return data;
         }
     })
-    console.log(advertiseArray.length)
+    // console.log(advertiseArray.length)
     if (isLoading) {
         return <SpinnerPrimary></SpinnerPrimary>
     }
