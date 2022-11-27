@@ -27,7 +27,20 @@ const MyPostedProducts = () => {
             return data;
         }
     })
-
+    // const bookedProductUrl = `http://localhost:5000/bookedProducts`;
+    // const { data: bookedProductArray = [] } = useQuery({
+    //     queryKey: ['bookedProducts'],
+    //     queryFn: async () => {
+    //         const res = await fetch(bookedProductUrl, {
+    //             headers: {
+    //                 authorization: `Bearer ${localStorage.getItem('as12tc-token')}`
+    //             }
+    //         });
+    //         const data = await res.json();
+    //         return data;
+    //     }
+    // })
+    // const bookedProduct = bookedProductArray.find(product => product.status === )
     const handleDeleteProduct = modalData => {
         console.log(modalData?._id)
         fetch(`http://localhost:5000/allProducts/${modalData?._id}`, {
@@ -96,7 +109,11 @@ const MyPostedProducts = () => {
                                         <td>
                                             <div className="font-bold">{product?.status}</div>
                                         </td>
-                                        <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>Advertise</button></td>
+                                        <td>
+                                            {
+                                                product?.status !== "booked" && <button className='btn btn-sm text-center btn-primary'>Advertise</button>
+                                            }
+                                        </td>
                                         <td>
                                             <label onClick={() => setDeletingPostedProduct(product)} htmlFor="confirmation-modal" className="btn">< MdCancel></MdCancel></label>
                                         </td>

@@ -90,6 +90,20 @@ const MyOrders = () => {
                                         </td>
                                         <td>${product?.productPrice}.00</td>
                                         <td>
+                                            {
+                                                product?.sold === "no" ?
+                                                    <>
+                                                        <button
+                                                            className='btn btn-sm text-center btn-primary'>Pay Now
+                                                        </button>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <span
+                                                            className='btn btn-sm text-center btn-disabled'>Sold
+                                                        </span>
+                                                    </>
+                                            }
                                         </td>
                                         <td>
                                             <label onClick={() => setDeletingBookedProduct(product)} htmlFor="confirmation-modal" className="btn">< MdCancel></MdCancel></label>

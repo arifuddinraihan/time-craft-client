@@ -23,21 +23,35 @@ const BookModal = ({ closeModal, modalData, user, refetch, setBookingProduct }) 
             sold: "no",
             status: "booked",
         }
-        fetch(`http://localhost:5000/bookedProducts?email=${user?.email}`, {
-            method: "POST",
+
+        fetch(`http://localhost:5000/bookedProducts/status-booked/${_id}`, {
+            method: "PUT",
             headers: {
-                "content-type": "application/json",
                 authorization: `bearer ${localStorage.getItem('as12tc-token')}`
-            },
-            body: JSON.stringify(bookedProduct)
+            }
         })
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
-                    toast.success("Product is booked!")
-                    refetch()
-                    reset()
-                    setBookingProduct(null)
+                    fetch(`http://localhost:5000/bookedProducts?email=${user?.email}`, {
+                        method: "POST",
+                        headers: {
+                            "content-type": "application/json",
+                            authorization: `bearer ${localStorage.getItem('as12tc-token')}`
+                        },
+                        body: JSON.stringify(bookedProduct)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.acknowledged) {
+                                toast.success("Product is booked!")
+                                refetch()
+                                reset()
+                                setBookingProduct(null)
+                                closeModal()
+                            }
+                        })
+                        .catch(err => console.log(err))
                 }
             })
             .catch(err => console.log(err))
