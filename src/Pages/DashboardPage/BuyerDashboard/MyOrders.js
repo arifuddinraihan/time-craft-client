@@ -6,6 +6,7 @@ import SpinnerPrimary from '../../../components/Spinner/SpinnerPrimary';
 import { UserContext } from '../../../context/UserValidation';
 import useTitle from '../../../Hook/useTitle';
 import { MdCancel } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 const MyOrders = () => {
     useTitle("My Orders")
@@ -28,6 +29,19 @@ const MyOrders = () => {
             return data;
         }
     })
+    // const allProductUrl = `http://localhost:5000/bookedProducts?email=${user?.email}`;
+    // const { data: allProductArray = [] } = useQuery({
+    //     queryKey: ['bookedProducts', user?.email],
+    //     queryFn: async () => {
+    //         const res = await fetch(allProductUrl, {
+    //             headers: {
+    //                 authorization: `Bearer ${localStorage.getItem('as12tc-token')}`
+    //             }
+    //         });
+    //         const data = await res.json();
+    //         return data;
+    //     }
+    // })
 
     const handleDeleteOrder = modalData => {
         console.log(modalData?._id)
@@ -50,7 +64,7 @@ const MyOrders = () => {
         return <SpinnerPrimary></SpinnerPrimary>
     }
     return (
-        <div>
+        <div className='mx-4'>
             <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>
                 {productsArray.length > 0 ? `Total ${productsArray.length} product in your list` : "No product booked yet!"}
             </h2>
@@ -68,8 +82,8 @@ const MyOrders = () => {
                         </thead>
                         <tbody>
                             {
-                                productsArray.map((product, i) =>
-                                    <tr key={product._id}>
+                                productsArray.map((booking, i) =>
+                                    <tr key={booking._id}>
                                         <td>
                                             {i + 1}
                                         </td>
@@ -77,25 +91,27 @@ const MyOrders = () => {
                                             <div className="flex items-center space-x-3">
                                                 <div className="avatar">
                                                     <div className="mask mask-squircle w-12 h-12">
-                                                        <img src={product?.productImgURL} alt={product?.productName} />
+                                                        <img src={booking?.productImgURL} alt={booking?.productName} />
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <div className="font-bold">{product?.productName}</div>
-                                                    <div className="text-sm opacity-50">Seller : {product?.sellerName}</div>
-                                                    <div className="text-sm opacity-50">Email : {product?.sellerEmail}</div>
-                                                    <div className="text-sm opacity-50">Location : {product?.clientLocation}</div>
+                                                    <div className="font-bold">{booking?.productName}</div>
+                                                    <div className="text-sm opacity-50">Seller : {booking?.sellerName}</div>
+                                                    <div className="text-sm opacity-50">Email : {booking?.sellerEmail}</div>
+                                                    <div className="text-sm opacity-50">Location : {booking?.clientLocation}</div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>${product?.productPrice}.00</td>
+                                        <td>${booking?.productPrice}.00</td>
                                         <td>
                                             {
-                                                product?.sold === "no" ?
+                                                booking?.sold === "no" ?
                                                     <>
-                                                        <button
-                                                            className='btn btn-sm text-center btn-primary'>Pay Now
-                                                        </button>
+                                                        <Link to={`/dashboard/buyer/payment/${booking?.product_Id}`}>
+                                                            <button
+                                                                className='btn btn-sm text-center btn-primary'>Pay Now
+                                                            </button>
+                                                        </Link>
                                                     </>
                                                     :
                                                     <>
@@ -106,7 +122,7 @@ const MyOrders = () => {
                                             }
                                         </td>
                                         <td>
-                                            <label onClick={() => setDeletingBookedProduct(product)} htmlFor="confirmation-modal" className="btn">< MdCancel></MdCancel></label>
+                                            <label onClick={() => setDeletingBookedProduct(booking)} htmlFor="confirmation-modal" className="btn">< MdCancel></MdCancel></label>
                                         </td>
                                     </tr>
                                 )
