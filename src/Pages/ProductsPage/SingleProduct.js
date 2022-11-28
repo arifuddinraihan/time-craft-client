@@ -98,6 +98,7 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
     } else {
         refetch()
     }
+
     return (
         <div>
             <div className="w-full max-w-sm overflow-hidden bg-amber-50 rounded-lg shadow-lg">

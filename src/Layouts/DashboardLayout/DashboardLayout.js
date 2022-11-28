@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { UserContext } from '../../context/UserValidation';
@@ -13,6 +14,21 @@ const DashboardLayout = () => {
     const [isAdmin] = useAdmin(user?.email)
     const [isSeller] = useSeller(user?.email)
     const [isBuyer] = useBuyer(user?.email)
+    // const url = `http://localhost:5000/userBuyer?email=${user?.email}`;
+    // const { data: userBuyer = [], refetch, isLoading } = useQuery({
+    //     queryKey: ['userBuyer', user?.email],
+    //     queryFn: async () => {
+    //         const res = await fetch(url, {
+    //             headers: {
+    //                 authorization: `Bearer ${localStorage.getItem('as12tc-token')}`
+    //             }
+    //         });
+    //         const data = await res.json();
+    //         return data;
+    //     }
+    // })
+    // console.log(userBuyer)
+
     const dashboardMenu = <>
         {
             isBuyer && <>

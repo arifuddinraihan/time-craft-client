@@ -44,7 +44,7 @@ const Login = () => {
                     name: user?.displayName,
                     email: user?.email,
                     imageURL: user?.photoURL,
-                    role: 'buyer'
+                    role: 'Buyer'
                 }
                 saveGoogleUserData(userData)
             })
