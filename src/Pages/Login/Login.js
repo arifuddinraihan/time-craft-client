@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from 'firebase/auth';
 import useToken from '../../Hook/useToken';
 import useTitle from '../../Hook/useTitle';
+import useMediaToken from '../../Hook/useMediaToken';
 
 const Login = () => {
     useTitle("Login Page")
@@ -15,16 +16,22 @@ const Login = () => {
     const [loginError, setLoginError] = useState('');
 
     // User Email state for forget password
-    const [userEmailForgetPass, setUserEmail] = useState('');
+    const [userEmailForgetPass, setUserEmailForgetPass] = useState('');
 
     // User Email after user logged in
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
+    const [mediaLoginUserEmail, setMediaLoginUserEmail] = useState('');
+    const [socialMediaToken] = useMediaToken(mediaLoginUserEmail)
     // navigate for after login user will be route into home
     const location = useLocation();
     const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || '/';
+
+    if (token || socialMediaToken) {
+        navigate(from, { replace: true })
+    }
 
     // Google Login Handle
     const googleLoginProvider = new GoogleAuthProvider();
@@ -49,14 +56,32 @@ const Login = () => {
                 setLoginError(error.message);
             })
     }
+    // Save Google User Data
+    const saveGoogleUserData = (userData) => {
+        fetch('http://localhost:5000/users', {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Successfully Logged in!')
+                    setMediaLoginUserEmail(userData?.email)
+                }
+            })
+            .catch(error => console.error(error))
+    }
 
     // Registered User login handle
     const handleLogin = data => {
-        // setLoginError('')
         signIn(data.email, data.password)
             .then(result => {
                 const user = result.user
                 setLoginUserEmail(user?.email)
+                setLoginError('')
                 reset();
                 toast.success('Successfully Logged in!')
             })
@@ -70,7 +95,7 @@ const Login = () => {
     // Forget Password handle
     const handleEmailBlur = event => {
         const email = event.target.value;
-        setUserEmail(email);
+        setUserEmailForgetPass(email);
     }
     const passwordReset = event => {
         if (!userEmailForgetPass) {
@@ -88,30 +113,6 @@ const Login = () => {
             });
     }
 
-    // Save Google User Data
-    const saveGoogleUserData = (userData) => {
-        setLoginUserEmail('')
-        fetch('http://localhost:5000/users', {
-            method: "PATCH",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(userData)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.acknowledged) {
-                    toast.success('Successfully Logged in!')
-                    setLoginUserEmail(userData?.email)
-                }
-            })
-            .catch(error => console.error(error))
-    }
-
-    if (token) {
-        navigate(from, { replace: true })
-    }
-
     return (
         <div className='container mx-auto'>
             <div className="w-full max-h-auto d-block min-h-screen p-4 flex items-center justify-center" >
@@ -124,7 +125,8 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="text" {...register("email", { required: "Your email is required." })}
+                            <input type="text" onBlur={handleEmailBlur}
+                                {...register("email", { required: "Your email is required." })}
                                 className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200" placeholder="info@timecraft.com" />
                             {errors.email && <p className='text-error my-2'>{errors.email.message}</p>}
                         </div>
@@ -141,8 +143,8 @@ const Login = () => {
                                 className="focus:outline-none border w-full p-2 border-amber-500 placeholder-orange-200"
                                 placeholder="********" />
                             <label className="label">
-                                <Link 
-                                    className="label-text text-xs hover:underline hover:underline-offset-1">Forgot Password</Link>
+                                <button onClick={passwordReset}
+                                    className="label-text text-xs hover:underline hover:underline-offset-1">Forgot Password</button>
                             </label>
                             {errors.password && <p className='text-error my-2'>{errors.password.message}</p>}
                         </div>

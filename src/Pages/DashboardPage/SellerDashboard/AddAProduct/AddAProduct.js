@@ -56,12 +56,13 @@ const AddAProduct = () => {
                         sellerContact,
                         productDetails,
                         status: "available",
-                        paid : false
+                        paid: false
                     }
                     fetch('http://localhost:5000/allProducts', {
                         method: "POST",
                         headers: {
-                            "content-type": "application/json"
+                            "content-type": "application/json",
+                            authorization: `Bearer ${localStorage.getItem('as12tc-token')}`
                         },
                         body: JSON.stringify(newPostedProduct)
                     })

@@ -5,9 +5,11 @@ import { UserContext } from '../../../../context/UserValidation';
 import { MdCancel } from "react-icons/md";
 import toast from 'react-hot-toast';
 import ConfirmationModal from '../../../../components/ConfirmarionModal/ConfirmationModal';
+import useTitle from '../../../../Hook/useTitle';
 
 
 const MyPostedProducts = () => {
+    useTitle('Your Products')
     const [deletingPostedProduct, setDeletingPostedProduct] = useState(null);
 
     const closeModal = () => {

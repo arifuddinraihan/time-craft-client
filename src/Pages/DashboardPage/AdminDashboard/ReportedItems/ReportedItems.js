@@ -5,8 +5,10 @@ import ConfirmationModal from '../../../../components/ConfirmarionModal/Confirma
 import SpinnerPrimary from '../../../../components/Spinner/SpinnerPrimary';
 import { UserContext } from '../../../../context/UserValidation';
 import { MdCancel } from "react-icons/md";
+import useTitle from '../../../../Hook/useTitle';
 
 const ReportedItems = () => {
+    useTitle('Reported Items')
     const [deletingReportedItem, setDeletingReportedItem] = useState(null);
 
     const closeModal = () => {
@@ -49,75 +51,71 @@ const ReportedItems = () => {
     }
     return (
         <div className='mx-4 md:mx-10'>
-        <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>
-            {
-                reportedProductArray.length > 0 ? `List of your ${reportedProductArray.length} products` : "You have not posted any product yet!"
-            }
-        </h2>
-        <div>
-            <div className="overflow-x-auto w-full">
-                <table className="table w-full">
-                    <thead>
-                        <tr>
-                            <th>Serial</th>
-                            <th>Product Details</th>
-                            <th>Resale Price</th>
-                            <th>Status</th>
-                            <th>Reported</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            reportedProductArray.map((product, i) =>
-                                <tr key={product._id}>
-                                    <td>
-                                        {i + 1}
-                                    </td>
-                                    <td>
-                                        <div className="flex items-center space-x-3">
-                                            <div className="avatar">
-                                                <div className="mask mask-squircle w-12 h-12">
-                                                    <img src={product?.productImgURL} alt={product?.productName} />
+            <h2 className='my-8 text-2xl font-semibold underline underline-offset-2'>
+                {
+                    reportedProductArray.length > 0 ? `List of your ${reportedProductArray.length} products` : "You have not posted any product yet!"
+                }
+            </h2>
+            <div>
+                <div className="overflow-x-auto w-full">
+                    <table className="table w-full">
+                        <thead>
+                            <tr>
+                                <th>Serial</th>
+                                <th>Product Details</th>
+                                <th>Resale Price</th>
+                                <th>Reported</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                reportedProductArray.map((product, i) =>
+                                    <tr key={product._id}>
+                                        <td>
+                                            {i + 1}
+                                        </td>
+                                        <td>
+                                            <div className="flex items-center space-x-3">
+                                                <div className="avatar">
+                                                    <div className="mask mask-squircle w-12 h-12">
+                                                        <img src={product?.productImgURL} alt={product?.productName} />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div className="font-bold">{product?.productName}</div>
+                                                    <div className="text-sm opacity-50">{product?.category}</div>
+                                                    <div className="text-sm opacity-50">{product?.productUsedFor} years Old</div>
+                                                    <div className="text-sm opacity-50">from: {product?.productLocation}</div>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <div className="font-bold">{product?.productName}</div>
-                                                <div className="text-sm opacity-50">{product?.category}</div>
-                                                <div className="text-sm opacity-50">{product?.productUsedFor} years Old</div>
-                                                <div className="text-sm opacity-50">from: {product?.productLocation}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="font-bold">${product?.resalePrice}</div>
-                                    </td>
-                                    <td>
-                                        <div className="font-bold">{product?.status}</div>
-                                    </td>
-                                    <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>{product?.reportedProduct}</button></td>
-                                    <td>
-                                        <label onClick={() => setDeletingReportedItem(product)} htmlFor="confirmation-modal" className="btn">< MdCancel></MdCancel></label>
-                                    </td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
+                                        </td>
+                                        <td>
+                                            <div className="font-bold">${product?.resalePrice}</div>
+                                        </td>
+                                        <td><button className='btn btn-sm text-center btn-ghost text-amber-500'>{product?.reportedProduct}</button></td>
+                                        <td>
+                                            <label onClick={() => setDeletingReportedItem(product)} htmlFor="confirmation-modal" className="btn">< MdCancel></MdCancel></label>
+                                        </td>
+                                    </tr>
+                                )
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-        {
-            deletingReportedItem && <ConfirmationModal
-                title={`Are you sure you want to remove?`}
-                message={`If you delete ${deletingReportedItem?.productName}. It cannot be undone.`}
-                successAction={handleDeleteProduct}
-                successButtonName="remove"
-                modalData={deletingReportedItem}
-                closeModal={closeModal}
+            {
+                deletingReportedItem && <ConfirmationModal
+                    title={`Are you sure you want to remove?`}
+                    message={`If you delete ${deletingReportedItem?.productName}. It cannot be undone.`}
+                    successAction={handleDeleteProduct}
+                    successButtonName="remove"
+                    modalData={deletingReportedItem}
+                    closeModal={closeModal}
 
-            ></ConfirmationModal>
-        }
-    </div>
+                ></ConfirmationModal>
+            }
+        </div>
     );
 };
 

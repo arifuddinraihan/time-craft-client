@@ -6,9 +6,11 @@ import toast from 'react-hot-toast';
 import { MdCancel } from "react-icons/md";
 import { MdVerifiedUser } from "react-icons/md";
 import ConfirmationModal from '../../../../components/ConfirmarionModal/ConfirmationModal';
+import useTitle from '../../../../Hook/useTitle';
 
 
 const AllSellers = () => {
+    useTitle('All Sellers')
     const [deletingSeller, setDeletingSeller] = useState(null);
 
     const closeModal = () => {

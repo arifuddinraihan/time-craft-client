@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import SpinnerPrimary from '../../../components/Spinner/SpinnerPrimary';
+import { UserContext } from '../../../context/UserValidation';
+import useBuyer from '../../../Hook/useBuyer';
 
-const CategoryCard = ({category}) => {
+const CategoryCard = ({ category }) => {
+    const { user, loader } = useContext(UserContext)
+    const [isBuyer, isBuyerLoading] = useBuyer(user?.email)
+
+    if (loader || isBuyerLoading) {
+        return <SpinnerPrimary></SpinnerPrimary>
+    }
+
     return (
         <div className="flex flex-col items-center justify-center w-full max-w-sm mx-auto">
             <div className="w-full h-64 bg-yellow-200 bg-center bg-cover rounded-lg shadow-md"

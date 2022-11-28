@@ -17,7 +17,8 @@ const ProductsPage = () => {
         queryFn: async () => {
             const res = await fetch(url, {
                 headers: {
-                    "content-type": "application/json"
+                    "content-type": "application/json",
+                    authorization: `bearer ${localStorage.getItem('as12tc-token')}`
                 }
             });
             const data = await res.json();

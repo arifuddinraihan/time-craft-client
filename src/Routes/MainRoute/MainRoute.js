@@ -60,10 +60,6 @@ const mainRoute = createBrowserRouter([
                 element: <DashboardPanel></DashboardPanel>
             },
             {
-                path: '/dashboard/admin',
-                element: <AdminDashboard></AdminDashboard>
-            },
-            {
                 path: '/dashboard/admin/buyers',
                 element: <AdminOnlyRoute><AllBuyers></AllBuyers></AdminOnlyRoute>
             },

@@ -4,9 +4,11 @@ import { UserContext } from '../../context/UserValidation';
 import useAdmin from '../../Hook/useAdmin';
 import useBuyer from '../../Hook/useBuyer';
 import useSeller from '../../Hook/useSeller';
+import useTitle from '../../Hook/useTitle';
 import Navbar from '../../Pages/Shared/Navbar/Navbar';
 
 const DashboardLayout = () => {
+    useTitle("Dashboard")
     const { user } = useContext(UserContext)
     const [isAdmin] = useAdmin(user?.email)
     const [isSeller] = useSeller(user?.email)

@@ -9,7 +9,7 @@ import useTitle from '../../../../Hook/useTitle';
 
 
 const AllBuyers = () => {
-    useTitle("All Buyer List")
+    useTitle("All Buyers")
     const [deletingBuyer, setDeletingBuyer] = useState(null);
 
     const closeModal = () => {
