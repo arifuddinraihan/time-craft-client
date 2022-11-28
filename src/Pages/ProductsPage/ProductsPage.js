@@ -11,7 +11,7 @@ const ProductsPage = () => {
     useTitle("Products Page")
     const products = useLoaderData();
     // console.log(products)
-    const url = `http://localhost:5000/productsPerCategory?name=${products?.categoryName}`;
+    const url = `https://time-craft-server-side.vercel.app/productsPerCategory?name=${products?.categoryName}`;
     const { data: productsArray = [], refetch, isLoading } = useQuery({
         queryKey: ['categoryProduct', products?.categoryName],
         queryFn: async () => {

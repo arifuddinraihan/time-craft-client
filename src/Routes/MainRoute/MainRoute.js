@@ -38,7 +38,7 @@ const mainRoute = createBrowserRouter([
             {
                 path: '/category/products/:name',
                 element: <ProtectedRoute><ProductsPage></ProductsPage></ProtectedRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/productsCategory/${params.name}`)
+                loader: ({ params }) => fetch(`https://time-craft-server-side.vercel.app/productsCategory/${params.name}`)
             },
             {
                 path: '/login',
@@ -86,7 +86,7 @@ const mainRoute = createBrowserRouter([
             {
                 path: '/dashboard/buyer/payment/:id',
                 element: <BuyerRoute><Payment></Payment></BuyerRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/bookedProducts/${params.id}`)
+                loader: ({ params }) => fetch(`https://time-craft-server-side.vercel.app/bookedProducts/${params.id}`)
             },
         ]
     }

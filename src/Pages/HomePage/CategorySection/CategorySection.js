@@ -4,7 +4,7 @@ import SpinnerPrimary from '../../../components/Spinner/SpinnerPrimary';
 import CategoryCard from './CategoryCard';
 
 const CategorySection = () => {
-    const url = 'http://localhost:5000/productsCategory'
+    const url = 'https://time-craft-server-side.vercel.app/productsCategory'
     const { data: categoryArray = [], isLoading } = useQuery({
         queryKey: ['productsCategory'],
         queryFn: async () => {

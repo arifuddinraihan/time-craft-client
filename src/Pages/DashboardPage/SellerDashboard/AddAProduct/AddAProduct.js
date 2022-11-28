@@ -58,7 +58,7 @@ const AddAProduct = () => {
                         status: "available",
                         paid: false
                     }
-                    fetch('http://localhost:5000/allProducts', {
+                    fetch('https://time-craft-server-side.vercel.app/allProducts', {
                         method: "POST",
                         headers: {
                             "content-type": "application/json",

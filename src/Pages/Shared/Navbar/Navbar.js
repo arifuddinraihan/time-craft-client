@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { UserContext } from '../../../context/UserValidation';
 import { FaUser } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
     const { user, logOut } = useContext(UserContext);
@@ -23,10 +24,15 @@ const Navbar = () => {
     // location tracker for conditional modal button render in navbar
     const location = useLocation();
     const dashboardPath = location.pathname;
-    
+
     const handleLogout = () => {
         localStorage.removeItem('as12tc-token')
         logOut()
+            .then(() => {
+                toast.success("successfully logged out")
+            }).catch((error) => {
+                toast.error(`${error.message}`)
+            });
     }
 
 

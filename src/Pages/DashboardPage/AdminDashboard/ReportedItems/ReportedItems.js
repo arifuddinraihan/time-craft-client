@@ -15,7 +15,7 @@ const ReportedItems = () => {
         setDeletingReportedItem(null);
     }
     const { user } = useContext(UserContext)
-    const url = `http://localhost:5000/reportedItems?email=${user?.email}`;
+    const url = `https://time-craft-server-side.vercel.app/reportedItems?email=${user?.email}`;
     const { data: reportedProductArray = [], refetch, isLoading } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
@@ -31,7 +31,7 @@ const ReportedItems = () => {
 
     const handleDeleteProduct = modalData => {
         console.log(modalData?._id)
-        fetch(`http://localhost:5000/reportedItems/${modalData?._id}`, {
+        fetch(`https://time-craft-server-side.vercel.app/reportedItems/${modalData?._id}`, {
             method: "DELETE",
             headers: {
                 authorization: `bearer ${localStorage.getItem('as12tc-token')}`

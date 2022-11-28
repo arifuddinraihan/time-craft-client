@@ -16,7 +16,7 @@ const AllBuyers = () => {
         setDeletingBuyer(null);
     }
     const { user } = useContext(UserContext)
-    const url = `http://localhost:5000/users/buyers?email=${user?.email}`;
+    const url = `https://time-craft-server-side.vercel.app/users/buyers?email=${user?.email}`;
     const { data: usersArray = [], refetch, isLoading } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
@@ -31,7 +31,7 @@ const AllBuyers = () => {
     })
 
     const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://time-craft-server-side.vercel.app/users/admin/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('as12tc-token')}`
@@ -48,7 +48,7 @@ const AllBuyers = () => {
     }
 
     const handleDeleteBuyer = buyer => {
-        fetch(`http://localhost:5000/users/buyers/${buyer?._id}`, {
+        fetch(`https://time-craft-server-side.vercel.app/users/buyers/${buyer?._id}`, {
             method : "DELETE",
             headers : {
                 authorization: `bearer ${localStorage.getItem('as12tc-token')}`

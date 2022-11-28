@@ -24,7 +24,7 @@ const BookModal = ({ closeModal, modalData, user, refetch, setBookingProduct }) 
             status: "booked",
         }
 
-        fetch(`http://localhost:5000/bookedProducts/status-booked/${_id}`, {
+        fetch(`https://time-craft-server-side.vercel.app/bookedProducts/status-booked/${_id}`, {
             method: "PUT",
             headers: {
                 authorization: `bearer ${localStorage.getItem('as12tc-token')}`
@@ -33,7 +33,7 @@ const BookModal = ({ closeModal, modalData, user, refetch, setBookingProduct }) 
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
-                    fetch(`http://localhost:5000/bookedProducts?email=${user?.email}`, {
+                    fetch(`https://time-craft-server-side.vercel.app/bookedProducts?email=${user?.email}`, {
                         method: "POST",
                         headers: {
                             "content-type": "application/json",

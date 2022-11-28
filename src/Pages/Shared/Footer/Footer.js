@@ -6,7 +6,7 @@ const Footer = () => {
         event.preventDefault();
         const form = event.target;
         const newsLetterEmail = form.email?.value;
-        fetch('http://localhost:5000/newsLetterEmails', {
+        fetch('https://time-craft-server-side.vercel.app/newsLetterEmails', {
             method: 'POST',
             headers: {
                 "content-type": "application/json"

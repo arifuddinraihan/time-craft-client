@@ -18,7 +18,7 @@ const CheckoutForm = ({ booking }) => {
     const { _id, resalePrice } = booking;
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://time-craft-server-side.vercel.app/create-payment-intent", {
             method: 'POST',
             headers: {
                 "content-Type": "application/json",
@@ -80,7 +80,7 @@ const CheckoutForm = ({ booking }) => {
                 email: user?.email,
                 bookingId: _id
             }
-            fetch('http://localhost:5000/payments', {
+            fetch('https://time-craft-server-side.vercel.app/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

@@ -65,7 +65,7 @@ const SignUp = () => {
     }
 
     const saveUserData = (userData) => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://time-craft-server-side.vercel.app/users', {
             method: 'POST',
             headers: {
                 "content-type": "application/json"

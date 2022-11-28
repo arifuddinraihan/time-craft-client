@@ -16,7 +16,7 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
 
     const [isBuyer, isBuyerLoading] = useBuyer(user?.email)
 
-    const url = `http://localhost:5000/bookedProducts?email=${user?.email}`;
+    const url = `https://time-craft-server-side.vercel.app/bookedProducts?email=${user?.email}`;
     const { data: bookedProductArray = [], isLoading } = useQuery({
         queryKey: ['bookedProducts', user?.email],
         queryFn: async () => {
@@ -29,7 +29,7 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
             return data;
         }
     })
-    const userUrl = `http://localhost:5000/users/sellers?email=${user?.email}`;
+    const userUrl = `https://time-craft-server-side.vercel.app/users/sellers?email=${user?.email}`;
     const { data: verifiedSellerArray = [], refetch } = useQuery({
         queryKey: ['sellers', user?.email],
         queryFn: async () => {
@@ -45,7 +45,7 @@ const SingleProduct = ({ product, user, setBookingProduct }) => {
     })
 
     const handleReportProduct = id => {
-        fetch(`http://localhost:5000/allProducts/${id}`, {
+        fetch(`https://time-craft-server-side.vercel.app/allProducts/${id}`, {
             method: "PUT",
             headers: {
                 authorization: `Bearer ${localStorage.getItem('as12tc-token')}`

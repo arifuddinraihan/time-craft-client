@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from 'firebase/auth';
 import useToken from '../../Hook/useToken';
 import useTitle from '../../Hook/useTitle';
-import useMediaToken from '../../Hook/useMediaToken';
+
 
 const Login = () => {
     useTitle("Login Page")
@@ -21,15 +21,13 @@ const Login = () => {
     // User Email after user logged in
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
-    const [mediaLoginUserEmail, setMediaLoginUserEmail] = useState('');
-    const [socialMediaToken] = useMediaToken(mediaLoginUserEmail)
     // navigate for after login user will be route into home
     const location = useLocation();
     const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || '/';
 
-    if (token || socialMediaToken) {
+    if (token) {
         navigate(from, { replace: true })
     }
 
@@ -58,7 +56,7 @@ const Login = () => {
     }
     // Save Google User Data
     const saveGoogleUserData = (userData) => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://time-craft-server-side.vercel.app/users', {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
@@ -69,7 +67,7 @@ const Login = () => {
             .then(data => {
                 if (data.acknowledged) {
                     toast.success('Successfully Logged in!')
-                    setMediaLoginUserEmail(userData?.email)
+                    setLoginUserEmail(userData?.email)
                 }
             })
             .catch(error => console.error(error))

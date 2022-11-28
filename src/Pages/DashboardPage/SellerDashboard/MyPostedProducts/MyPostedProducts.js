@@ -16,7 +16,7 @@ const MyPostedProducts = () => {
         setDeletingPostedProduct(null);
     }
     const { user } = useContext(UserContext)
-    const url = `http://localhost:5000/allProducts/seller?email=${user?.email}`;
+    const url = `https://time-craft-server-side.vercel.app/allProducts/seller?email=${user?.email}`;
     const { data: productArray = [], refetch, isLoading } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
@@ -30,7 +30,7 @@ const MyPostedProducts = () => {
         }
     })
     const handleAdvertiseProduct = id => {
-        fetch(`http://localhost:5000/advertisedProducts/${id}`, {
+        fetch(`https://time-craft-server-side.vercel.app/advertisedProducts/${id}`, {
             method: "PUT",
             headers: {
                 authorization: `bearer ${localStorage.getItem('as12tc-token')}`
@@ -47,7 +47,7 @@ const MyPostedProducts = () => {
     }
     const handleDeleteProduct = modalData => {
         // console.log(modalData?._id)
-        fetch(`http://localhost:5000/allProducts/${modalData?._id}`, {
+        fetch(`https://time-craft-server-side.vercel.app/allProducts/${modalData?._id}`, {
             method: "DELETE",
             headers: {
                 authorization: `bearer ${localStorage.getItem('as12tc-token')}`

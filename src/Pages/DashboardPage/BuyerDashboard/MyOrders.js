@@ -16,7 +16,7 @@ const MyOrders = () => {
         setDeletingBookedProduct(null);
     }
     const { user } = useContext(UserContext)
-    const url = `http://localhost:5000/bookedProducts?email=${user?.email}`;
+    const url = `https://time-craft-server-side.vercel.app/bookedProducts?email=${user?.email}`;
     const { data: productsArray = [], refetch, isLoading } = useQuery({
         queryKey: ['bookedProducts', user?.email],
         queryFn: async () => {
@@ -29,7 +29,7 @@ const MyOrders = () => {
             return data;
         }
     })
-    // const allProductUrl = `http://localhost:5000/bookedProducts?email=${user?.email}`;
+    // const allProductUrl = `https://time-craft-server-side.vercel.app/bookedProducts?email=${user?.email}`;
     // const { data: allProductArray = [] } = useQuery({
     //     queryKey: ['bookedProducts', user?.email],
     //     queryFn: async () => {
@@ -45,7 +45,7 @@ const MyOrders = () => {
 
     const handleDeleteOrder = modalData => {
         console.log(modalData?._id)
-        fetch(`http://localhost:5000/bookedProducts/${modalData?._id}`, {
+        fetch(`https://time-craft-server-side.vercel.app/bookedProducts/${modalData?._id}`, {
             method: "DELETE",
             headers: {
                 authorization: `bearer ${localStorage.getItem('as12tc-token')}`

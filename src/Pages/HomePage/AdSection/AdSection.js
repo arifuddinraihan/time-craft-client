@@ -4,7 +4,7 @@ import AwesomeSlider from 'react-awesome-slider';
 import withAutoplay from 'react-awesome-slider/dist/autoplay';
 import SpinnerPrimary from '../../../components/Spinner/SpinnerPrimary';
 const AdSection = () => {
-    const url = `http://localhost:5000/advertisedProducts`;
+    const url = `https://time-craft-server-side.vercel.app/advertisedProducts`;
     const { data: advertiseArray = [], isLoading } = useQuery({
         queryKey: ['advertisedProducts'],
         queryFn: async () => {
@@ -31,7 +31,7 @@ const AdSection = () => {
 
         >
             {
-                advertiseArray.map(add => <div data-src={add.productImgURL} />)
+                advertiseArray.map((add, i) => <div key={i} data-src={add.productImgURL} />)
             }
         </AutoplaySlider>
     </>
