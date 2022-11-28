@@ -5,10 +5,9 @@ import { UserContext } from '../../../context/UserValidation';
 import useBuyer from '../../../Hook/useBuyer';
 
 const CategoryCard = ({ category }) => {
-    const { user, loader } = useContext(UserContext)
-    const [isBuyer, isBuyerLoading] = useBuyer(user?.email)
+    const { loader } = useContext(UserContext)
 
-    if (loader || isBuyerLoading) {
+    if (loader) {
         return <SpinnerPrimary></SpinnerPrimary>
     }
 

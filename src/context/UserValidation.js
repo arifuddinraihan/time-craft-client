@@ -44,7 +44,7 @@ const UserValidation = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (user === null) {
-                console.log(`from Auth state, observing user!`)
+                // console.log(`from Auth state, observing user!`)
                 setUser(currentUser);
                 setLoader(false)
             }

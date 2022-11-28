@@ -1,6 +1,6 @@
 # Project Name : Time Craft
 
-This project was build with React JS, Tailwind CSS > DaisyUI & MerakiUI [Press here to see the website](https://time-craft-e1592.firebaseapp.com/).
+This project was build with React JS, Tailwind CSS > DaisyUI [Press here to see the website](https://time-craft-e1592.firebaseapp.com/).
 
 ### Project Over-view
 

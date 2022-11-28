@@ -12,7 +12,7 @@ const Blog = () => {
     axios.get('https://time-craft-server-side.vercel.app/blog')
       .then(function (response) {
         const blogs = response.data
-        console.log(blogs);
+        // console.log(blogs);
         setBlogsArray(blogs);
       })
       .catch(function (error) {

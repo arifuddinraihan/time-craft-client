@@ -30,7 +30,7 @@ const ReportedItems = () => {
     })
 
     const handleDeleteProduct = modalData => {
-        console.log(modalData?._id)
+        // console.log(modalData?._id)
         fetch(`https://time-craft-server-side.vercel.app/reportedItems/${modalData?._id}`, {
             method: "DELETE",
             headers: {
