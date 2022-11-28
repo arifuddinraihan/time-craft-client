@@ -2,6 +2,9 @@
 
 This project was build with React JS, Tailwind CSS > DaisyUI [Press here to see the website](https://time-craft-e1592.firebaseapp.com/).
 
+->> adminemail: finaladmin@timecraft.com
+->> adminPassword: Asd@123
+
 ### Project Over-view
 
 These are the platforms which has used to build this Web-site 
@@ -20,6 +23,7 @@ These are the platforms which has used to build this Web-site
 ->> [LottiePlayer React Component](https://github.com/LottieFiles/lottie-react) ,
  
 ->> [React Icons](https://recharts.org/en-US/guide/installation)
+
 
 ### Why And How (Tour of this Web-site)?
 
