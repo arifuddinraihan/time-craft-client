@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ const SignUp = () => {
     const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
     const imageHostKey = process.env.REACT_APP_imgbb_key;
-    
+
     const handleRegister = data => {
         // console.log(data)
         const image = data.image[0];
@@ -83,10 +83,12 @@ const SignUp = () => {
             .catch(error => console.error(error))
     }
 
-    if (token) {
-        navigate('/');
-    }
 
+    useEffect(() => {
+        if (token) {
+            navigate('/');
+        }
+    }, [token])
     return (
         <div className='container mx-auto'>
             <div className="w-full max-h-auto d-block min-h-screen p-4 flex items-center justify-center" >
