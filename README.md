@@ -2,6 +2,7 @@
 
 This project was build with React JS, Tailwind CSS > DaisyUI [Press here to see the website](https://time-craft-e1592.firebaseapp.com/).
 
+->> [server side code](https://github.com/arifuddinraihan/time-craft-server)
 ->> adminemail: finaladmin@timecraft.com
 ->> adminPassword: Asd@123
 
