@@ -1,10 +1,14 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+
 import useTitle from '../../../Hook/useTitle';
 import AdSection from '../AdSection/AdSection';
 import CategorySection from '../CategorySection/CategorySection';
 import MainBanner from '../MainBanner/MainBanner';
 import UpcomingProducts from '../UpcomingProducts/UpcomingProducts';
+import AppDownload from '../AppDownload/AppDownload';
+import OurTeam from '../OurTeam/OurTeam';
+import SellerReviews from '../SellerReviews/SellerReviews';
+import FrequentlyAsked from '../FrequentlyAsked/FrequentlyAsked';
 
 const HomePageLayout = () => {
     useTitle("TimeCraft Home")
@@ -14,6 +18,10 @@ const HomePageLayout = () => {
             <AdSection></AdSection>
             <CategorySection></CategorySection>
             <UpcomingProducts></UpcomingProducts>
+            <AppDownload></AppDownload>
+            <SellerReviews></SellerReviews>
+            <FrequentlyAsked></FrequentlyAsked>
+            <OurTeam></OurTeam>
         </div>
     );
 };

@@ -50,7 +50,7 @@ const UpcomingProducts = () => {
                     </div>
 
 
-                    <div className="p-8 border rounded-lg ">
+                    <div className="p-8 border rounded-lg">
                         <p className="leading-loose">
                             “I had too many watch from past centuries and on Time-Craft website I not only got a decent value og those vintage watches but also best buyers. Very fast and beautifully designed website to make your search and selling or buying time efficient. Very helpful online service, fast & efficient. Great first class service from beginning to end.”
                         </p>
