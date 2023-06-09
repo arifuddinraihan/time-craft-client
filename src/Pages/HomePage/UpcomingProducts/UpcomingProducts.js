@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UpcomingProducts = () => {
+const BuyerReviews = () => {
     return (
         <section className="bg-base-100 my-10">
             <div className="container px-6 py-10 mx-auto">
@@ -72,4 +72,4 @@ const UpcomingProducts = () => {
     );
 };
 
-export default UpcomingProducts;
+export default BuyerReviews;
