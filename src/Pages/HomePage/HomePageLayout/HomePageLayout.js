@@ -9,6 +9,7 @@ import AppDownload from '../AppDownload/AppDownload';
 import OurTeam from '../OurTeam/OurTeam';
 import SellerReviews from '../SellerReviews/SellerReviews';
 import FrequentlyAsked from '../FrequentlyAsked/FrequentlyAsked';
+import OurLocation from '../OurLocation/OurLocation';
 
 const HomePageLayout = () => {
     useTitle("TimeCraft Home")
@@ -22,6 +23,7 @@ const HomePageLayout = () => {
             <SellerReviews></SellerReviews>
             <FrequentlyAsked></FrequentlyAsked>
             <OurTeam></OurTeam>
+            <OurLocation></OurLocation>
         </div>
     );
 };
