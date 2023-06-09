@@ -7,19 +7,19 @@ const AboutUs = () => {
         <div className="lg:flex lg:items-center">
           <div className="w-full space-y-12 lg:w-1/2 ">
             <div>
-              <h1 className="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">
+              <h1 className="text-2xl font-semibold text-amber-200 capitalize lg:text-3xl ">
                 explore our <br /> awesome Components
               </h1>
 
               <div className="mt-2">
-                <span className="inline-block w-40 h-1 bg-blue-500 rounded-full"></span>
-                <span className="inline-block w-3 h-1 ml-1 bg-blue-500 rounded-full"></span>
-                <span className="inline-block w-1 h-1 ml-1 bg-blue-500 rounded-full"></span>
+                <span className="inline-block w-40 h-1 bg-amber-300 rounded-full"></span>
+                <span className="inline-block w-3 h-1 ml-1 bg-amber-200 rounded-full"></span>
+                <span className="inline-block w-1 h-1 ml-1 bg-amber-100 rounded-full"></span>
               </div>
             </div>
 
             <div className="md:flex md:items-start md:-mx-4">
-              <span className="inline-block p-2 text-blue-500 bg-blue-100 rounded-xl md:mx-4 dark:text-white dark:bg-blue-500">
+              <span className="inline-block p-2 text-black bg-yellow-200 rounded-xl md:mx-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6"
@@ -37,11 +37,11 @@ const AboutUs = () => {
               </span>
 
               <div className="mt-4 md:mx-4 md:mt-0">
-                <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+                <h1 className="text-xl font-semibold text-yellow-500 capitalize ">
                   Copy & paste components
                 </h1>
 
-                <p className="mt-3 text-gray-500 dark:text-gray-300">
+                <p className="mt-3  ">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Provident ab nulla quod dignissimos vel non corrupti doloribus
                   voluptatum eveniet
@@ -50,7 +50,7 @@ const AboutUs = () => {
             </div>
 
             <div className="md:flex md:items-start md:-mx-4">
-              <span className="inline-block p-2 text-blue-500 bg-blue-100 rounded-xl md:mx-4 dark:text-white dark:bg-blue-500">
+              <span className="inline-block p-2 text-black bg-yellow-200 rounded-xl md:mx-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6"
@@ -68,11 +68,11 @@ const AboutUs = () => {
               </span>
 
               <div className="mt-4 md:mx-4 md:mt-0">
-                <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+                <h1 className="text-xl font-semibold text-yellow-500 capitalize ">
                   Zero Configuration
                 </h1>
 
-                <p className="mt-3 text-gray-500 dark:text-gray-300">
+                <p className="mt-3  ">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Provident ab nulla quod dignissimos vel non corrupti doloribus
                   voluptatum eveniet
@@ -81,7 +81,7 @@ const AboutUs = () => {
             </div>
 
             <div className="md:flex md:items-start md:-mx-4">
-              <span className="inline-block p-2 text-blue-500 bg-blue-100 rounded-xl md:mx-4 dark:text-white dark:bg-blue-500">
+              <span className="inline-block p-2 text-black bg-yellow-200 rounded-xl md:mx-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6"
@@ -105,11 +105,11 @@ const AboutUs = () => {
               </span>
 
               <div className="mt-4 md:mx-4 md:mt-0">
-                <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-white">
+                <h1 className="text-xl font-semibold text-yellow-500 capitalize ">
                   elegant Dark Mode
                 </h1>
 
-                <p className="mt-3 text-gray-500 dark:text-gray-300">
+                <p className="mt-3  ">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Provident ab nulla quod dignissimos vel non corrupti doloribus
                   voluptatum eveniet
@@ -132,7 +132,7 @@ const AboutUs = () => {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
           <div className="flex items-center justify-center col-span-1 md:col-span-2 lg:col-span-1">
             <svg
-              className="h-12 text-gray-500 fill-current dark:text-gray-300"
+              className="h-12  fill-current "
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 266 100"
             >
@@ -143,7 +143,7 @@ const AboutUs = () => {
 
           <div className="flex items-center justify-center col-span-1 md:col-span-2 lg:col-span-1">
             <svg
-              className="h-10 text-gray-500 fill-current dark:text-gray-300"
+              className="h-10  fill-current "
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 316 60"
             >
@@ -167,7 +167,7 @@ const AboutUs = () => {
 
           <div className="flex items-center justify-center col-span-1 md:col-span-2 lg:col-span-1">
             <svg
-              className="h-8 mt-2 text-gray-500 fill-current dark:text-gray-300"
+              className="h-8 mt-2  fill-current "
               viewBox="0 0 398 120"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -180,7 +180,7 @@ const AboutUs = () => {
 
           <div className="flex items-center justify-center col-span-1 md:col-span-3 lg:col-span-1">
             <svg
-              className="h-5 mt-1 text-gray-500 fill-current dark:text-gray-300"
+              className="h-5 mt-1  fill-current "
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 278.7 36.3"
             >
@@ -195,7 +195,7 @@ const AboutUs = () => {
 
           <div className="flex items-center justify-center col-span-2 md:col-span-3 lg:col-span-1">
             <svg
-              className="h-8 text-gray-500 fill-current dark:text-gray-300"
+              className="h-8  fill-current "
               viewBox="0 0 2270 546"
               xmlns="http://www.w3.org/2000/svg"
             >
