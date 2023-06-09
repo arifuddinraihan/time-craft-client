@@ -10,12 +10,15 @@ import OurTeam from '../OurTeam/OurTeam';
 import SellerReviews from '../SellerReviews/SellerReviews';
 import FrequentlyAsked from '../FrequentlyAsked/FrequentlyAsked';
 import OurLocation from '../OurLocation/OurLocation';
+import ContactUsForm from '../ContactUsForm/ContactUsForm';
+import AboutUs from '../AboutUs/AboutUs';
 
 const HomePageLayout = () => {
     useTitle("TimeCraft Home")
     return (
         <div className='container mx-auto'>
             <MainBanner></MainBanner>
+            <AboutUs></AboutUs>
             <AdSection></AdSection>
             <CategorySection></CategorySection>
             <UpcomingProducts></UpcomingProducts>
@@ -24,6 +27,7 @@ const HomePageLayout = () => {
             <FrequentlyAsked></FrequentlyAsked>
             <OurTeam></OurTeam>
             <OurLocation></OurLocation>
+            <ContactUsForm></ContactUsForm>
         </div>
     );
 };

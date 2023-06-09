@@ -7,7 +7,7 @@ export default function FrequentlyAsked() {
       <h1 class="text-2xl font-semibold text-center lg:text-3xl">
         Frequently asked questions
       </h1>
-      <div className="flex justify-center mx-auto mt-2 mb-6">
+      <div className="flex justify-center mx-auto mt-6 mb-6">
           <span className="inline-block w-48 h-1 bg-amber-300 rounded-full"></span>
           <span className="inline-block w-3 h-1 mx-1 bg-amber-200 rounded-full"></span>
           <span className="inline-block w-1 h-1 bg-amber-100 rounded-full"></span>
