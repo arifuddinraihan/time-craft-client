@@ -17,7 +17,8 @@ const HomeVideoBanner = () => {
         url="https://www.youtube.com/watch?v=cuJjngO6uxk"
         playing
         loop
-        volume
+        muted
+        autoplay={true}
         className="aspect-auto"
         width="100%"
         height="100%"
