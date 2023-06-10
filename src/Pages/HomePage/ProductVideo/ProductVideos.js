@@ -4,7 +4,7 @@ import ReactPlayer from "react-player/youtube";
 const ProductVideos = () => {
 
   return (
-    <div className="max-w-screen-xl py-16 p-5 mx-auto dark:bg-gray-800 dark:text-gray-100">
+    <div className="max-w-screen-xl py-16 p-5 mx-auto bg-base-100">
       <h1 className="text-2xl font-semibold text-center capitalize lg:text-3xl">
         Explore our best Brands
       </h1>
