@@ -13,12 +13,14 @@ import OurLocation from '../OurLocation/OurLocation';
 import ContactUsForm from '../ContactUsForm/ContactUsForm';
 import AboutUs from '../AboutUs/AboutUs';
 import ProductVideos from '../ProductVideo/ProductVideos';
+import HomeVideoBanner from '../VideoBanner/HomeVideoBanner';
 
 const HomePageLayout = () => {
     useTitle("TimeCraft Home")
     return (
         <div className='container mx-auto'>
             <MainBanner></MainBanner>
+            <HomeVideoBanner></HomeVideoBanner>
             <AboutUs></AboutUs>
             <CategorySection></CategorySection>
             <BuyerReviews></BuyerReviews>
