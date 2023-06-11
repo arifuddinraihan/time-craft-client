@@ -2,22 +2,21 @@ import React from "react";
 
 const ContactUsForm = () => {
   return (
-    <section
-      className="min-h-screen bg-cover my-8"
-    >
+    <section className="min-h-screen bg-cover my-8">
       <div className="flex flex-col min-h-screen bg-base-100">
         <div className="container flex flex-col flex-1 px-6 py-12 mx-auto">
           <div className="flex-1 lg:flex lg:items-center lg:-mx-6">
             <div className="text-amber-200 lg:w-1/2 lg:mx-6">
               <h1 className="text-2xl font-semibold capitalize lg:text-3xl">
-                Ultimate design solution
+                Timeless Watches, Unbeatable Deals!
               </h1>
 
               <p className="max-w-xl mt-6">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Voluptatem quo aliquid molestiae hic incidunt beatae placeat
-                accusantium! Alias ex quisquam ab tempora. Ratione autem
-                doloremque ducimus numquam doloribus, error sed.
+                Discover a world of exquisite timepieces at unbeatable prices.
+                From luxury brands to vintage classics, our reseller watch
+                website offers a curated collection that will capture your style
+                and elevate your wrist game. Contact us now to find your perfect
+                watch and experience exceptional customer service.
               </p>
 
               <button className="px-8 py-3 mt-6 text-md font-medium tracking-wide capitalize transition-colors duration-300 transform bg-gradient-to-r from-warning to-primary text-accent rounded-md focus:outline-none focus:ring focus:ring-amber-600 focus:ring-opacity-50">

@@ -23,14 +23,7 @@ const SellerReviews = () => {
 
           <div>
             <p className="flex items-center text-center lg:mx-8">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam,
-              quam. Odio voluptatem officiis eos illo! Pariatur, totam alias.
-              Beatae accusamus earum quos obcaecati minima molestias. Possimus
-              minima dolores itaque! Esse! Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Ea voluptates fugiat corrupti
-              laudantium dolores reiciendis pariatur esse quod nihil quia
-              cupiditate debitis quisquam nemo, accusamus animi explicabo?
-              Architecto, unde laboriosam?
+            Selling my watch through this website was a breeze! From listing to delivery, everything was seamless. The communication with the team was prompt and helpful. The watch arrived safely, thanks to secure shipping. The payment was quick and hassle-free. Highly recommend this platform for a smooth and hassle-free selling experience.
             </p>
 
             <div className="flex flex-col items-center justify-center mt-8">
